@@ -30,7 +30,12 @@ class Lesson(models.Model):
         return self.name
 
 
-# class Message(models.Model):
-#     author = models.ForeignKey(SchoolUser, on_delete=models.DO_NOTHING)
-#     target = models.ForeignKey(SchoolUser, on_delete=models.DO_NOTHING)
-#     text = models.TextField()
+class Message(models.Model):
+    author = models.ForeignKey(SchoolUser, on_delete=models.DO_NOTHING, related_name='author')
+    target = models.ForeignKey(SchoolUser, on_delete=models.DO_NOTHING, related_name='target')
+    text = models.TextField()
+    created = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return f'OD:{self.author} DO:{self.target} Z: {self.created}'
+
