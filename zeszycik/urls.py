@@ -22,8 +22,9 @@ from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index, name='index'),
-    path('administrator', administrator, name='administrator'),
+    path('administrator', Administrator.as_view(), name='administrator'),
     path('teacher', teacher, name='teacher'),
     path('student', student, name='student'),
+    path('create', LessonsCreateView.as_view(), name='create_lessons'),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

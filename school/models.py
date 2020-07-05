@@ -23,7 +23,7 @@ class Lesson(models.Model):
     name = models.CharField(max_length=150, unique=True, blank=False)
     description = models.TextField()
     teacher = models.ForeignKey(SchoolUser, on_delete=models.SET_NULL, null=True, blank=True)
-    date = models.DateTimeField()
+    date = models.DateTimeField(default=timezone.now)
     data = models.FileField(null=True, blank=True)
 
     def __str__(self):
