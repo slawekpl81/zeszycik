@@ -20,4 +20,7 @@ from school.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index, name='index'),
+    path('administrator', administrator, name='administrator'),
+    path('teacher', teacher, name='teacher'),
+    path('student', student, name='student'),
 ]
