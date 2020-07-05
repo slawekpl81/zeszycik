@@ -1,0 +1,17 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
+    <h1>ADMINISTRATOR SITE</h1>
+    <h3>Zajecia:</h3>
+    {% for lesson in lessons %}
+        <a href="#">{{ lesson }}<br></a>
+    {% endfor %}
+    <h3>=======================================</h3>
+    <a href="{% url 'create_lessons' %}">dodaj zajecia</a><br>
+    <a href="#">wyslij wiadomosc</a><br>
+    <a href="#">odbierz wiadomosci</a>
+{% endblock content %}
