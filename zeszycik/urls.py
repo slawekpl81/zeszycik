@@ -25,6 +25,9 @@ urlpatterns = [
     path('administrator', Administrator.as_view(), name='administrator'),
     path('teacher', teacher, name='teacher'),
     path('student', student, name='student'),
-    path('create', LessonsCreateView.as_view(), name='create_lessons'),
+    path('lesson/detail/<pk>', LessonsDetailView.as_view(), name='lesson_detail'),
+    path('lesson/update/<pk>', LessonsUpdateView.as_view(), name='lesson_update'),
+    path('lesson/delete/<pk>', LessonsDeleteView.as_view(), name='lesson_delete'),
+    path('lessons/create', LessonsCreateView.as_view(), name='create_lessons'),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
