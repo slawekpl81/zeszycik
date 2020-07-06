@@ -2,5 +2,7 @@ h1{
     color: #003366;
 }
 body {
-    background: rgba(110, 189, 55, 0.53);
+    background: url("static/images/backgr.jpg");
+    background-attachment: fixed;
+    background-size: 100%;
 }
