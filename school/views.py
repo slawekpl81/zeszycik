@@ -15,6 +15,10 @@ class Administrator(ListView):
     model = Lesson
     context_object_name = 'lessons'
 
+class LessonsDetailView(DetailView):
+    template_name = 'lessons_detail.html'
+    model = Lesson
+    context_object_name = 'lesson'
 
 class LessonsCreateView(CreateView):
     template_name = 'form.html'
@@ -24,11 +28,17 @@ class LessonsCreateView(CreateView):
 
 
 class LessonsUpdateView(UpdateView):
-    pass
+    template_name = 'form.html'
+    model = Lesson
+    form_class = LessonForm
+    success_url = reverse_lazy('administrator')
 
 
 class LessonsDeleteView(DeleteView):
-    pass
+    template_name = 'lessons_delete.html'
+    model = Lesson
+    form_class = LessonForm
+    success_url = reverse_lazy('administrator')
 
 
 def teacher(request):
