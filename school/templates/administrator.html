@@ -11,7 +11,7 @@
         <p>{{ lesson }}/<a href="{% url 'lesson_detail' lesson.pk %}">szczegóły</a>/<a href="{% url 'lesson_update' lesson.pk %}">aktualizuj</a>/<a href="{% url 'lesson_delete' lesson.pk %}">usuń</a></p>
     {% endfor %}
     <h3>=======================================</h3>
-    <a href="{% url 'create_lessons' %}">dodaj zajecia</a><br>
+    <a href="{% url 'lesson_create' %}">dodaj zajecia</a><br>
     <a href="#">wyslij wiadomosc</a><br>
     <a href="#">odbierz wiadomosci</a>
 {% endblock content %}

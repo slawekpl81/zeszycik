@@ -32,15 +32,21 @@
         <li class="nav-item active">
         <a class="nav-link" id="nav-link-index" href="#">Home <span class="sr-only">(current)</span></a>
       </li>
+        {% if user.groups.all.0.name == 'administrator' %}
         <li class="nav-item active">
         <a class="nav-link" id="nav-link-index" href="{% url 'administrator' %}">Dyrektor <span class="sr-only">(current)</span></a>
       </li>
+        {% endif %}
+        {% if user.groups.all.0.name == 'teachers' %}
         <li class="nav-item active">
         <a class="nav-link"  id="nav-link-index" href="{% url 'teacher' %}">Nauczyciel <span class="sr-only">(current)</span></a>
       </li>
+        {% endif %}
+        {% if user.groups.all.0.name == 'students' %}
         <li class="nav-item active">
         <a class="nav-link" id="nav-link-index" href="{% url 'student' %}">Uczeń <span class="sr-only">(current)</span></a>
       </li>
+        {% endif %}
            <li class="nav-item active">
         <a class="nav-link" id="nav-link-index" href="{% url 'admin:index' %}">... <span class="sr-only">(current)</span></a>
       </li>
@@ -49,6 +55,14 @@
 
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">LOGIN</button>
     </form>
+      <form class="form-inline my-2 my-lg-0">
+        {% if user.is_authenticated %}
+            <h6 class="btn btn-outline-success " >Zalogowano: {{ user.username }} <span class="sr-only">(current)</span></h6>
+            <a class="btn btn-outline-success my-2 my-sm-0" href="{% url 'logout' %}">LOGOUT</a>
+        {% else %}
+            <a class="btn btn-outline-success my-2 my-sm-0" href="{% url 'login' %}">LOGIN</a>
+        {% endif %}
+      </form>
   </div>
 </nav>
 
