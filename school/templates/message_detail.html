@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+    {{ message.author }}<br>
+    {{ message.target }}<br>
+    {{ message.text }}<br>
+    {{ message.created }}<br>
+
+
+{% endblock content %}
