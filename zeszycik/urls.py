@@ -26,12 +26,25 @@ urlpatterns = [
     path('login/', LoginView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(template_name='index.html'), name='logout'),
     path('accounts/profile/',index, name='index'),
+
     path('administrator', Administrator.as_view(), name='administrator'),
     path('teacher', teacher, name='teacher'),
     path('student', student, name='student'),
+
     path('lesson/detail/<pk>', LessonsDetailView.as_view(), name='lesson_detail'),
     path('lesson/update/<pk>', LessonsUpdateView.as_view(), name='lesson_update'),
     path('lesson/delete/<pk>', LessonsDeleteView.as_view(), name='lesson_delete'),
-    path('lessons/create', LessonsCreateView.as_view(), name='create_lessons'),
+    path('lessons/create',     LessonsCreateView.as_view(), name='lesson_create'),
+
+    path('message/detail/<pk>', MessageDetailView.as_view(), name='message_detail'),
+    path('message/update/<pk>', MessageUpdateView.as_view(), name='message_update'),
+    path('message/delete/<pk>', MessageDeleteView.as_view(), name='message_delete'),
+    path('message/create',      MessageCreateView.as_view(), name='message_create'),
+
+    path('studenttest/detail/<pk>', StudentTestDetailView.as_view(), name='studenttest_detail'),
+    path('studenttest/update/<pk>', StudentTestUpdateView.as_view(), name='studenttest_update'),
+    path('studenttest/delete/<pk>', StudentTestDeleteView.as_view(), name='studenttest_delete'),
+    path('studenttest/create',      StudentTestCreateView.as_view(), name='studenttest_create'),
+
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -39,3 +39,15 @@ class Message(models.Model):
     def __str__(self):
         return f'OD:{self.author} DO:{self.target} Z: {self.created}'
 
+class StudentTest(models.Model):
+    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
+    author = models.ForeignKey(SchoolUser, on_delete=models.DO_NOTHING)
+    question = models.TextField()
+    answer_right = models.CharField(max_length=150)
+    answer_1_wrong = models.CharField(max_length=150)
+    answer_2_wrong = models.CharField(max_length=150)
+    answer_3_wrong = models.CharField(max_length=150)
+
+    def __str__(self):
+        return f'{self.question[:30]}'
+
