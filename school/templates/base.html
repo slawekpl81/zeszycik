@@ -23,25 +23,50 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
+     {% if user.groups.all.0.name == 'administrator' %}
         <li class="nav-item active">
         <a class="nav-link" href="{% url 'administrator' %}">Dyrektor <span class="sr-only">(current)</span></a>
-      </li>
-        <li class="nav-item active">
-        <a class="nav-link" href="{% url 'teacher' %}">Nauczyciel <span class="sr-only">(current)</span></a>
-      </li>
+        </li>
+    {% endif %}
+            {% if user.groups.all.0.name == 'teachers' %}
+                <li class="nav-item active">
+                <a class="nav-link" href="{% url 'teacher' %}">Nauczyciel <span class="sr-only">(current)</span></a>
+                </li>
+            {% endif %}
+
+    {% if user.groups.all.0.name == 'students' %}
         <li class="nav-item active">
         <a class="nav-link" href="{% url 'student' %}">Uczeń <span class="sr-only">(current)</span></a>
       </li>
+    {% endif %}
            <li class="nav-item active">
         <a class="nav-link" href="{% url 'admin:index' %}">... <span class="sr-only">(current)</span></a>
       </li>
-    </ul>
-    <form class="form-inline my-2 my-lg-0">
+        {% if user.is_authenticated %}
+            <li class="nav-item active">
+                <h6 class="btn btn-outline-success " >Zalogowano: {{ user.username }} <span class="sr-only">(current)</span></h6>
+            </li>
+        {% endif %}
 
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">LOGIN</button>
+    </ul>
+
+
+
+    <form class="form-inline my-2 my-lg-0">
+               <a class="btn btn-outline-success my-2 my-sm-0" href="{% url 'login' %}">LOGIN</a>
+        <a class="btn btn-outline-success my-2 my-sm-0" href="{% url 'logout' %}">LOGOUT</a>
     </form>
   </div>
 </nav>
+    {% if user.is_authenticated %}
+        User is authenticated!
+        {{ user.username }}
+        {{ user.groups.all.0.name }}
+        {% if user.groups.all.0.name == 'teachers' %}
+            Zalogowano NAUCZYCIEL
+            {% endif %}
+
+{% endif %}
     {% block content %}
 
     {% endblock content %}
