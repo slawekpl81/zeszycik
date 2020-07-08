@@ -1,14 +1,22 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import LoginView
 from django.views.generic import *
 from .models import *
 from .forms import *
 
 
 # Create your views here.
+
+
 def index(request):
     return render(request, 'index.html', {})
 
+class SubmittableAuthenticationView(LoginView):
+    form_class = SubmittableAuthenticationForm
+    template_name = 'form.html'
+    success_url = reverse_lazy('index')
 
 class Administrator(ListView):
     template_name = 'administrator.html'
