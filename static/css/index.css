@@ -15,13 +15,13 @@ body {
 
 .navbar-brand{
     font-size: 30px;
-    color: #6c757d !important;
+    color: #f1f1f1 !important;
     font-weight: bold;
 }
 
-.nav-link{
+#nav-link-index{
     font-size: 20px;
-    color:#6c757d;
+    color:#f1f1f1;
 
 }
 #showcase h1{
