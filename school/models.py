@@ -14,6 +14,12 @@ class SchoolUser(models.Model):
     ]
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
     permissions = models.CharField(choices=USERS_KIND, max_length=15)
+    grades = models.CharField(max_length=150)
+
+    def add_grade(self, grade):
+        self.grades += str(grade)
+
+
 
     def __str__(self):
         return f'{self.user.first_name} {self.user.last_name} - {self.permissions}'
