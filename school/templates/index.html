@@ -1,3 +1,4 @@
+{% extends 'base.html' %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="PL">
@@ -21,51 +22,8 @@
 
 </head>
 <body >
-<nav class="navbar navbar-expand-md navbar-default navbar-fixed-top bg-dark">
-  <a class="navbar-brand" href="{% url 'index' %}">ZESZYCIK</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-        <a class="nav-link" id="nav-link-index" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
-        {% if user.groups.all.0.name == 'administrator' %}
-        <li class="nav-item active">
-        <a class="nav-link" id="nav-link-index" href="{% url 'administrator' %}">Dyrektor <span class="sr-only">(current)</span></a>
-      </li>
-        {% endif %}
-        {% if user.groups.all.0.name == 'teachers' %}
-        <li class="nav-item active">
-        <a class="nav-link"  id="nav-link-index" href="{% url 'teacher' %}">Nauczyciel <span class="sr-only">(current)</span></a>
-      </li>
-        {% endif %}
-        {% if user.groups.all.0.name == 'students' %}
-        <li class="nav-item active">
-        <a class="nav-link" id="nav-link-index" href="{% url 'student' %}">Uczeń <span class="sr-only">(current)</span></a>
-      </li>
-        {% endif %}
-           <li class="nav-item active">
-        <a class="nav-link" id="nav-link-index" href="{% url 'admin:index' %}">... <span class="sr-only">(current)</span></a>
-      </li>
-    </ul>
-    <form class="form-inline my-2 my-lg-0">
-
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">LOGIN</button>
-    </form>
-      <form class="form-inline my-2 my-lg-0">
-        {% if user.is_authenticated %}
-            <h6 class="btn btn-outline-success " >Zalogowano: {{ user.username }} <span class="sr-only">(current)</span></h6>
-            <a class="btn btn-outline-success my-2 my-sm-0" href="{% url 'logout' %}">LOGOUT</a>
-        {% else %}
-            <a class="btn btn-outline-success my-2 my-sm-0" href="{% url 'login' %}">LOGIN</a>
-        {% endif %}
-      </form>
-  </div>
-</nav>
-
+{% block content %}
 <section id="showcase" >
     <div class="container">
         <div class="row">
@@ -101,11 +59,7 @@
     </div>
 
 </section>
-<footer class="fixed-bottom bg-dark">
-  <div class="text-center">
-    <span class="text-muted">Copyright &copy; 2020 Zeszycik</span>
-  </div>
-</footer>
+
     <script >
         window.sr = ScrollReveal();
         sr.reveal('.navbarSupportedContent', {
@@ -134,7 +88,7 @@
 
     </script>
 
-
+{% endblock %}
 
 </body>
 </html>
