@@ -27,7 +27,7 @@
   </button>
 
 
-      <form class="form-inline my-2 my-sm-0">
+      <form class="form-inline my-2 my-sm-0" id="base-btn">
         {% if user.is_authenticated %}
             <a class="btn btn-outline-success " >Zalogowano: {{ user.username }} <span class="sr-only">(current)</span></a>
             <a class="btn btn-outline-success my-2 my-sm-0" href="{% url 'logout' %}">LOGOUT</a>
