@@ -25,7 +25,7 @@ urlpatterns = [
     path('', index, name='index'),
     path('login/', LoginView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(template_name='index.html'), name='logout'),
-    path('accounts/profile/',index, name='index'),
+    path('accounts/profile/', index, name='index'),
 
     path('administrator', Administrator.as_view(), name='administrator'),
     path('teacher', teacher, name='teacher'),

@@ -2,15 +2,17 @@
 {% load static %}
 
 
-<body >
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
 
 {% block content %}
+
+
 <section id="showcase" >
     <div class="container">
         <div class="row">
             <div class="col-md-6 col-sm-6">
                 <div class="showcase-left">
-                    <img src="static/images/showcaseindex.jpg">
+                    <img src="{% static 'images/showcaseindex.jpg' %}">
                 </div>
 
             </div>
@@ -70,6 +72,3 @@
     </script>
 
 {% endblock %}
-
-</body>
-</html>
