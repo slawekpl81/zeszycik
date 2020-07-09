@@ -25,17 +25,19 @@ urlpatterns = [
     path('', index, name='index'),
     path('login/', LoginView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(template_name='index.html'), name='logout'),
-    path('accounts/profile/', index, name='index'),
+    path('accounts/profile/', dashboard, name='dashboard'),
 
     path('administrator', Administrator.as_view(), name='administrator'),
     path('teacher', teacher, name='teacher'),
     path('student', student, name='student'),
 
+    path('lessons', LessonsListView.as_view(), name='lessons_list'),
     path('lesson/detail/<pk>', LessonsDetailView.as_view(), name='lesson_detail'),
     path('lesson/update/<pk>', LessonsUpdateView.as_view(), name='lesson_update'),
     path('lesson/delete/<pk>', LessonsDeleteView.as_view(), name='lesson_delete'),
     path('lessons/create',     LessonsCreateView.as_view(), name='lesson_create'),
 
+    path('messages', MessageListView.as_view(), name='messages_list'),
     path('message/detail/<pk>', MessageDetailView.as_view(), name='message_detail'),
     path('message/update/<pk>', MessageUpdateView.as_view(), name='message_update'),
     path('message/delete/<pk>', MessageDeleteView.as_view(), name='message_delete'),

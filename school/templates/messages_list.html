@@ -1,0 +1,13 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
+    <h3>Zajecia:</h3>
+    {% for message in messages %}
+        <p>{{ message }}/<a href="{% url 'message_detail' message.pk %}">szczegóły</a>/<a href="{% url 'message_update' message.pk %}">aktualizuj</a>/<a href="{% url 'message_delete' message.pk %}">usuń</a></p>
+    {% endfor %}
+
+{% endblock content %}

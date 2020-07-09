@@ -13,6 +13,8 @@ from .forms import *
 def index(request):
     return render(request, 'index.html', {})
 
+def dashboard(request):
+    return render(request, 'dashboard.html', {})
 
 class Administrator(ListView):
     template_name = 'administrator.html'
@@ -22,7 +24,7 @@ class Administrator(ListView):
 
 # ============================================================================================
 class LessonsListView(ListView):
-    template_name = ''
+    template_name = 'lessons_list.html'
     model = Lesson
     context_object_name = 'lessons'
 
@@ -55,7 +57,7 @@ class LessonsDeleteView(DeleteView):
 
 # ============================================================================================
 class MessageListView(ListView):
-    template_name = ''
+    template_name = 'messages_list.html'
     model = Message
     context_object_name = 'messages'
 
