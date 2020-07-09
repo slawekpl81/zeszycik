@@ -21,6 +21,11 @@ class Administrator(ListView):
 
 
 # ============================================================================================
+class LessonsListView(ListView):
+    template_name = ''
+    model = Lesson
+    context_object_name = 'lessons'
+
 class LessonsDetailView(DetailView):
     template_name = 'lessons_detail.html'
     model = Lesson
@@ -49,6 +54,17 @@ class LessonsDeleteView(DeleteView):
 
 
 # ============================================================================================
+class MessageListView(ListView):
+    template_name = ''
+    model = Message
+    context_object_name = 'messages'
+
+    # def get_context_data(self, *args, object_list=None, **kwargs):
+    #     context = super(MessageListView, self).get_context_data(*args, **kwargs)
+    #
+    #     login_user = User.objects.filter(user=self.request.user)
+
+
 
 class MessageDetailView(DetailView):
     template_name = 'message_detail.html'

@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
+from functools import reduce
 
 
 # Create your models here.
@@ -19,6 +20,9 @@ class SchoolUser(models.Model):
     def add_grade(self, grade):
         self.grades += str(grade)
 
+    def mean_of_grades(self):
+        mean = reduce(lambda sum_of, grade: int(sum_of)+int(grade), self.grades) / len(self.grades)
+        return f'{mean :.2f}'
 
 
     def __str__(self):
