@@ -1,12 +1,10 @@
-{% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Zeszycik</title>
 
-    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link rel="stylesheet" href="static/css/index.css">
 
     <!-- CSS only -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
@@ -22,22 +20,22 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-md navbar-default navbar-fixed-top bg-dark">
-      <a class="navbar-brand" href="{% url 'index' %}">ZESZYCIK</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+  <a class="navbar-brand" href="{% url 'index' %}">ZESZYCIK</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
-
-          <form class="form-inline my-2 my-sm-0">
-            {% if user.is_authenticated %}
-                <h6 class="btn btn-outline-success " >Zalogowano: {{ user.username }} <span class="sr-only">(current)</span></h6>
-                <a class="btn btn-outline-success my-2 my-sm-0" href="{% url 'logout' %}">LOGOUT</a>
-            {% else %}
-                <a class="btn btn-outline-success my-2 my-sm-0" href="{% url 'login' %}">LOGIN</a>
-            {% endif %}
-          </form>
-
-    </nav>
+    </form>
+      <form class="form-inline my-2 my-sm-0">
+        {% if user.is_authenticated %}
+            <h6 class="btn btn-outline-success " >Zalogowano: {{ user.username }} <span class="sr-only">(current)</span></h6>
+            <a class="btn btn-outline-success my-2 my-sm-0" href="{% url 'logout' %}">LOGOUT</a>
+        {% else %}
+            <a class="btn btn-outline-success my-2 my-sm-0" href="{% url 'login' %}">LOGIN</a>
+        {% endif %}
+      </form>
+  </div>
+</nav>
 
     {% block content %}
     {% endblock %}
