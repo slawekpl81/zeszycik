@@ -34,7 +34,7 @@ class Lesson(models.Model):
     description = models.TextField()
     teacher = models.ForeignKey(SchoolUser, on_delete=models.SET_NULL, null=True, blank=True, related_name='teacher')
     date = models.DateTimeField(default=timezone.now)
-    data = models.FileField(null=True, blank=True)
+    data = models.FileField(blank=True, null=True)
     students = models.ManyToManyField(SchoolUser, null=True, blank=True, related_name='students')
 
     def __str__(self):

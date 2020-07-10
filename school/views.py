@@ -33,6 +33,11 @@ class LessonsDetailView(DetailView):
     model = Lesson
     context_object_name = 'lesson'
 
+class LessonsDataView(DetailView):
+    template_name = 'lessons_data.html'
+    model = Lesson
+    context_object_name = 'lesson'
+
 
 class LessonsCreateView(CreateView):
     template_name = 'form.html'

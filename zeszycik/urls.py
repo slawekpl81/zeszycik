@@ -33,6 +33,7 @@ urlpatterns = [
 
     path('lessons', LessonsListView.as_view(), name='lessons_list'),
     path('lesson/detail/<pk>', LessonsDetailView.as_view(), name='lesson_detail'),
+    path('lesson/data/<pk>', LessonsDataView.as_view(), name='lesson_data'),
     path('lesson/update/<pk>', LessonsUpdateView.as_view(), name='lesson_update'),
     path('lesson/delete/<pk>', LessonsDeleteView.as_view(), name='lesson_delete'),
     path('lessons/create',     LessonsCreateView.as_view(), name='lesson_create'),
@@ -49,5 +50,4 @@ urlpatterns = [
     path('studenttest/delete/<pk>', StudentTestDeleteView.as_view(), name='studenttest_delete'),
     path('studenttest/create',      StudentTestCreateView.as_view(), name='studenttest_create'),
 
-]
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

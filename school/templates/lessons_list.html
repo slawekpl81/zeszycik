@@ -9,6 +9,7 @@
         <h3>Zajecia:</h3>
         {% for lesson in lessons %}
             <p>{{ lesson }}/<a href="{% url 'lesson_detail' lesson.pk %}">szczegóły</a>/<a href="{% url 'lesson_update' lesson.pk %}">aktualizuj</a>/<a href="{% url 'lesson_delete' lesson.pk %}">usuń</a></p>
+            <p>***/<a href="{% url 'lesson_data' lesson.pk %}">materiały</a>
         {% endfor %}
     </div>
 
