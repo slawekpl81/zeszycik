@@ -1,14 +1,16 @@
 
-{#% extends 'base.html' %#}
+{% extends 'base.html' %}
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/index.css' %}">
 
 
-{#% block content %#}
+{% block content %}
     <div class="container-fluid" id="list">
         <h3>Zajecia:</h3>
         {% for lesson in lessons %}
             <p>{{ lesson }}/<a href="{% url 'lesson_detail' lesson.pk %}">szczegóły</a>/<a href="{% url 'lesson_update' lesson.pk %}">aktualizuj</a>/<a href="{% url 'lesson_delete' lesson.pk %}">usuń</a></p>
         {% endfor %}
     </div>
-{#% endblock content %#}
+
+    <a href="{% url 'lesson_create' %}">Nowy kurs</a>
+{% endblock content %}
