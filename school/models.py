@@ -32,9 +32,10 @@ class SchoolUser(models.Model):
 class Lesson(models.Model):
     name = models.CharField(max_length=150, unique=True, blank=False)
     description = models.TextField()
-    teacher = models.ForeignKey(SchoolUser, on_delete=models.SET_NULL, null=True, blank=True)
+    teacher = models.ForeignKey(SchoolUser, on_delete=models.SET_NULL, null=True, blank=True, related_name='teacher')
     date = models.DateTimeField(default=timezone.now)
     data = models.FileField(null=True, blank=True)
+    students = models.ManyToManyField(SchoolUser, null=True, blank=True, related_name='students')
 
     def __str__(self):
         return self.name
