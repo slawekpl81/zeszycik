@@ -31,7 +31,7 @@ class SchoolUser(models.Model):
 
 class Lesson(models.Model):
     name = models.CharField(max_length=150, unique=True, blank=False)
-    description = models.TextField()
+    description = models.CharField(max_length=250)
     teacher = models.ForeignKey(SchoolUser, on_delete=models.SET_NULL, null=True, blank=True, related_name='teacher')
     date = models.DateTimeField(default=timezone.now)
     data = models.FileField(blank=True, null=True)
@@ -44,7 +44,7 @@ class Lesson(models.Model):
 class Message(models.Model):
     author = models.ForeignKey(SchoolUser, on_delete=models.DO_NOTHING, related_name='author')
     target = models.ForeignKey(SchoolUser, on_delete=models.DO_NOTHING, related_name='target')
-    text = models.TextField()
+    text = models.CharField(max_length=250)
     created = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
@@ -53,7 +53,7 @@ class Message(models.Model):
 class StudentTest(models.Model):
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
     author = models.ForeignKey(SchoolUser, on_delete=models.DO_NOTHING)
-    question = models.TextField()
+    question = models.CharField(max_length=250)
     answer_right = models.CharField(max_length=5, default='')
     answer_1 = models.CharField(max_length=150, default='')
     answer_2 = models.CharField(max_length=150, default='')
