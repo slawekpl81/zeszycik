@@ -49,5 +49,9 @@ urlpatterns = [
     path('studenttest/update/<pk>', StudentTestUpdateView.as_view(), name='studenttest_update'),
     path('studenttest/delete/<pk>', StudentTestDeleteView.as_view(), name='studenttest_delete'),
     path('studenttest/create',      StudentTestCreateView.as_view(), name='studenttest_create'),
+    path('studenttest/solve',       StudentTestSolveView.as_view(),  name='studenttest_solve'),
+    path('exams',                   ExamListView.as_view(),  name='exams'),
+
+    path('calendar', CalendarView.as_view(), name='calendar'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

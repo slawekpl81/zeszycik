@@ -1,0 +1,15 @@
+
+{% extends 'base.html' %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
+
+
+{% block content %}
+    <div class="container-fluid" id="list">
+        <h3>Kalendarz:</h3>
+        {% for lesson in lessons %}
+            <p>{{ lesson }} - {{ lesson.date }} - {{ lesson.students.get_queryset }}</p>
+        {% endfor %}
+    </div>
+
+{% endblock content %}

@@ -133,7 +133,21 @@ class StudentTestDeleteView(DeleteView):
     form_class = StudentTestForm
     success_url = reverse_lazy('studenttest_list')
 
+class StudentTestSolveView(CreateView):
+    template_name = 'studenttest_solve.html'
+    model = Exam
+    form_class = StudentTestSolveForm
+    success_url = reverse_lazy('studenttest_list')
 
+class ExamListView(ListView):
+    template_name = 'exam_list.html'
+    model = Exam
+    context_object_name = 'exams'
+# ============================================================================================
+class CalendarView(ListView):
+    template_name = 'calendar.html'
+    model = Lesson
+    context_object_name = 'lessons'
 # ============================================================================================
 def teacher(request):
     return render(request, 'teacher.html', {})

@@ -54,11 +54,31 @@ class StudentTest(models.Model):
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
     author = models.ForeignKey(SchoolUser, on_delete=models.DO_NOTHING)
     question = models.TextField()
-    answer_right = models.CharField(max_length=150)
-    answer_1_wrong = models.CharField(max_length=150)
-    answer_2_wrong = models.CharField(max_length=150)
-    answer_3_wrong = models.CharField(max_length=150)
+    answer_right = models.CharField(max_length=5, default='')
+    answer_1 = models.CharField(max_length=150, default='')
+    answer_2 = models.CharField(max_length=150, default='')
+    answer_3 = models.CharField(max_length=150, default='')
+    answer_4 = models.CharField(max_length=150, default='')
 
     def __str__(self):
-        return f'{self.question[:30]}'
+        return f'{self.question[:30]} odpowiedzi:{self.answer_1}, {self.answer_2}, {self.answer_3}, {self.answer_4}'
 
+
+
+class Exam(models.Model):
+    test = models.ForeignKey(StudentTest, on_delete=models.CASCADE)
+    student = models.ForeignKey(SchoolUser, on_delete=models.CASCADE)
+    answer = models.CharField(max_length=5)
+
+
+    @property
+    def passed(self):
+        if self.answer == self.test.answer_right:
+            self._passed = True
+        else:
+            self._passed = False
+
+        return self._passed
+
+    def __str__(self):
+        return f'{self.student} - {self.passed}'
