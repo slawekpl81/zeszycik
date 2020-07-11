@@ -1,3 +1,4 @@
+{% extends 'dashboard.html' %}
 
 
 {% load static %}
@@ -14,11 +15,7 @@
 
 {% block content %}
     <div class="container-fluid" id="dashborad-container">
-        <h3>Zajecia:</h3>
-        {% for lesson in lessons %}
-            <p>{{ lesson }}/<a href="{% url 'lesson_detail' lesson.pk %}">szczegóły</a>/<a href="{% url 'lesson_update' lesson.pk %}">aktualizuj</a>/<a href="{% url 'lesson_delete' lesson.pk %}">usuń</a></p>
-            <p>***/<a href="{% url 'lesson_data' lesson.pk %}">materiały</a>
-        {% endfor %}
+
     <div class=" table table-responsive-md">
       <table class="table">
           <thead>
@@ -36,7 +33,18 @@
                 <tr >
                     <td>{{ lessons.pk }}</td>
                      <td>{{ lessons.name }}</td>
-                    <td><a>link</a></a></td>
+                    <td>
+                        <a href="{% url 'lesson_detail' lessons.pk %}">link-details</a>
+                    </td>
+                    <td>
+                        <a href="{% url 'lesson_update' lessons.pk %}">link-Update</a>
+                    </td>
+                    <td>
+                        <a href="{% url 'lesson_delete' lessons.pk %}">link-Delete</a>
+                    </td>
+                    <td>
+                        <a href="{% url 'lesson_data' lessons.pk %}">link-Data</a>
+                    </td>
 
                 </tr>
             {% endfor %}
