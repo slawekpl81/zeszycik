@@ -33,16 +33,10 @@
                     </li>
                 </ul>
           </div>
-          <div class="col-md-10 padding ml-auto " id="base-col" >
-              <object  data="{% url 'lessons_list' %}" >
+          <div class="col-md-10 padding " id="base-col" >
+              <object  data="{% url 'lessons_list' %}" style="width:100%;height:100vh;">
 
               </object>
-              Zalogowano: <br>
-              nazwa uzytkownika: {{ user.username }} <br>
-              Imie i nazwisko: {{ user.first_name }} {{ user.last_name }}<br>
-                Status uzytkownika: {{ user.groups.all.0.name }} <br>
-              Utworzenie konta: {{ user.date_joined }} <br>
-              Ostatnie logowanie: {{ user.last_login }} <br>
 
 
           </div>
