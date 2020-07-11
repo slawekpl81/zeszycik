@@ -33,11 +33,9 @@
                     </li>
                 </ul>
           </div>
-          <div class="col-md-10 padding " id="base-col" >
-              <object  data="{% url 'lessons_list' %}" style="width:100%;height:100vh;">
-
-              </object>
-
+            <div class="col-md-10 padding " id="base-col" >
+              {% block title %}
+                {% endblock %}
 
           </div>
         </div>
