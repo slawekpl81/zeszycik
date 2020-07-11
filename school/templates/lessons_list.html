@@ -7,6 +7,8 @@
 
 {% block title %}
     <div class="container-fluid" id="dashborad-container">
+    <h3>Curses:</h3>
+    <a href="{% url 'lesson_create' %}">Nowy kurs</a>
 
     <div class=" table table-responsive-md">
       <table class="table">
@@ -46,6 +48,5 @@
     </div>
 
     </div>
-    <br>
-    <a href="{% url 'lesson_create' %}">Nowy kurs</a>
+
 {% endblock title %}

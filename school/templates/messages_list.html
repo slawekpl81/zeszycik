@@ -10,6 +10,9 @@
 
      <div class="container-fluid" id="dashborad-container">
 
+     <h3>Messages:</h3>
+     <a href="{% url 'message_create' %}">Nowa wiadomość</a>
+
     <div class=" table table-responsive-md">
       <table class="table">
           <thead>
@@ -51,7 +54,7 @@
 
     </div>
 
-       <a href="{% url 'message_create' %}">Nowa wiadomość</a>
+
 
 
 {% endblock title %}
