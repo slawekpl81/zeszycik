@@ -1,5 +1,5 @@
 
-{% extends 'base.html' %}
+{% extends 'index.html' %}
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/index.css' %}">
 
@@ -11,5 +11,52 @@
     {% endfor %}
 
     <a href="{% url 'studenttest_create' %}">Nowy test</a>
+    <h3>Testy:</h3>
+
+     <div class="container-fluid" id="dashborad-container">
+
+    <div class=" table table-responsive-md">
+      <table class="table">
+          <thead>
+            <th scope="col">No</th>
+            <th scope="col">Lesson</th>
+            <th scope="col">Author</th>
+            <th scope="col">Question</th>
+            <th scope="col">Answer_1</th>
+            <th scope="col">Update</th>
+            <th scope="col">Delete</th>
+          </thead>
+          <tbody>
+
+            {% for test in studenttest %}
+
+                <tr >
+                    <td>{{ test.pk }}</td>
+                    <td>{{ test.lesson }}</td>
+                     <td>{{ test.author }}</td>
+                      <td>  {{ test.question }}      </td>
+                        <td>  {{ test.answer_1 }}      </td>
+
+                    <td>
+                        <a href="{% url 'test_detail' test.pk %}">link-details</a>
+                    </td>
+                    <td>
+                        <a href="{% url 'test_update' test.pk %}">link-Update</a>
+                    </td>
+                    <td>
+                        <a href="{% url 'test_delete' test.pk %}">link-Delete</a>
+                    </td>
+
+
+                </tr>
+            {% endfor %}
+
+          </tbody>
+      </table>
+    </div>
+
+    </div>
+
+       <a href="{% url 'message_create' %}">Nowa wiadomość</a>
 
 {% endblock content %}
