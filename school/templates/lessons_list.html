@@ -11,6 +11,33 @@
             <p>{{ lesson }}/<a href="{% url 'lesson_detail' lesson.pk %}">szczegóły</a>/<a href="{% url 'lesson_update' lesson.pk %}">aktualizuj</a>/<a href="{% url 'lesson_delete' lesson.pk %}">usuń</a></p>
             <p>***/<a href="{% url 'lesson_data' lesson.pk %}">materiały</a>
         {% endfor %}
+    <div class=" table table-responsive-md">
+      <table class="table">
+          <thead>
+            <th scope="col">No</th>
+            <th scope="col">Curses</th>
+
+          </thead>
+          <tbody>
+            {% for lessons in lessons %}
+                <tr>
+                <td scope="row">{{ lessons.pk }}</td>
+                <td scope="row">{{ lessons.pk.1 }}</td>
+                <td scope="row">{{ lessons.pk.2 }}</td>
+                <td scope="row">{{ lessons.pk.3 }}</td>
+                </tr>
+
+          {% endfor %}
+
+
+
+
+          </tbody>
+
+        ...
+      </table>
+    </div>
+
     </div>
 
     <a href="{% url 'lesson_create' %}">Nowy kurs</a>
