@@ -1,15 +1,57 @@
 
-{% extends 'base.html' %}
+{% extends 'dashboard.html' %}
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/index.css' %}">
 
 {% block content %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
-    <h3>Wiadomości:</h3>
-    {% for message in messages %}
-        <p>{{ message }}/<a href="{% url 'message_detail' message.pk %}">szczegóły</a>/<a href="{% url 'message_update' message.pk %}">aktualizuj</a>/<a href="{% url 'message_delete' message.pk %}">usuń</a></p>
-    {% endfor %}
 
-    <a href="{% url 'message_create' %}">Nowa wiadomość</a>
+    <h3>Wiadomości:</h3>
+
+     <div class="container-fluid" id="dashborad-container">
+
+    <div class=" table table-responsive-md">
+      <table class="table">
+          <thead>
+            <th scope="col">No</th>
+            <th scope="col">From</th>
+            <th scope="col">To</th>
+            <th scope="col">Date</th>
+            <th scope="col">Message</th>
+            <th scope="col">Update</th>
+            <th scope="col">Delete</th>
+          </thead>
+          <tbody>
+
+            {% for message in messages %}
+
+                <tr >
+                    <td>{{ message.pk }}</td>
+                     <td>{{ message.author }}</td>
+                      <td>  {{ message.target }}      </td>
+                        <td>  {{ message.created }}      </td>
+
+                    <td>
+                        <a href="{% url 'message_detail' message.pk %}">link-details</a>
+                    </td>
+                    <td>
+                        <a href="{% url 'message_update' message.pk %}">link-Update</a>
+                    </td>
+                    <td>
+                        <a href="{% url 'message_delete' message.pk %}">link-Delete</a>
+                    </td>
+
+
+                </tr>
+            {% endfor %}
+
+          </tbody>
+      </table>
+    </div>
+
+    </div>
+
+       <a href="{% url 'message_create' %}">Nowa wiadomość</a>
+
 
 {% endblock content %}
+
