@@ -40,14 +40,14 @@
                                       <span aria-hidden="true">&times;</span>
                                     </button>
                                   </div>
-                                  <div class="modal-body">
-                                    {{ lesson.name }}<br>
-                                    {{ lesson.description }}<br>
-                                    {{ lesson.teacher }}<br>
-                                    {{ lesson.students.get_queryset }} <br>
-                                    {{ lesson.date }}<br>
-                                    {{ lesson.data }}<br>
-                                  </div>
+                                      <div class="modal-body">
+                                        {{ lesson.name }}<br>
+                                        {{ lesson.description }}<br>
+                                        {{ lesson.teacher }}<br>
+                                        {{ lesson.students.get_queryset }} <br>
+                                        {{ lesson.date }}<br>
+                                        {{ lesson.data }}<br>
+                                      </div>
                                   <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 
@@ -62,7 +62,36 @@
                     </td>
 
                     <td>
-                        <a href="{% url 'lesson_delete' lessons.pk %}"class="btn btn-primary active" role="button" aria-pressed="true">Delete</a>
+
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                          Delete
+                        </button>
+                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <form method="post">
+                                        {% csrf_token %}
+                                        <p>
+                                          Napewno chcesz usunąć zajęcia z bazy?
+                                        </p>
+                                        <input type="submit" value="Submit">
+                                      </form>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
                     </td>
                     <td>
                         <a href="{% url 'lesson_data' lessons.pk %}"class="btn btn-primary active" role="button" aria-pressed="true">Data</a>
