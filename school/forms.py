@@ -1,6 +1,7 @@
 from django.forms import *
 from django.contrib.auth.forms import AuthenticationForm
 from .models import *
+from crispy_forms import *
 
 
 class LoginForm(Form):
