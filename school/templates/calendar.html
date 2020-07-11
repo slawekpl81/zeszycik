@@ -1,14 +1,42 @@
-{% extends 'base.html' %}
+{% extends 'dashboard2.html' %}
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/index.css' %}">
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
 
 
 {% block content %}
-    <div class="container-fluid" id="list">
-        <h3>Kalendarz:</h3>
-        {% for lesson in lessons %}
-            <p>{{ lesson }} - {{ lesson.date }} - {{ lesson.students.get_queryset }}</p>
-        {% endfor %}
+
+
+
+    <div class="container-fluid" id="dashborad-container">
+    <h3>Kalendarz:</h3>
+
+    <div class=" table table-responsive-md">
+      <table class="table">
+          <thead>
+            <th scope="col">No</th>
+            <th scope="col">Curses</th>
+            <th scope="col">Date</th>
+
+          </thead>
+          <tbody>
+
+            {% for lessons in lessons %}
+
+                <tr >
+                    <td>{{ lessons.pk }}</td>
+                     <td>{{ lessons.name }}</td>
+                    <td>{{ lessons.date }}</td>
+
+
+                </tr>
+            {% endfor %}
+
+          </tbody>
+      </table>
     </div>
+
+    </div>
+
 
 {% endblock content %}

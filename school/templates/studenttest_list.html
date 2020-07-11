@@ -1,16 +1,24 @@
-
 {% extends 'index.html' %}
+
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/index.css' %}">
+   <!-- CSS only -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <!-- JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/scrollreveal"></script>
 
 {% block content %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
+
     <h3>Testy:</h3>
     {% for test in studenttests %}
         <p>{{ test }}/<a href="{% url 'studenttest_detail' test.pk %}">szczegóły</a>/<a href="{% url 'studenttest_update' test.pk %}">aktualizuj</a>/<a href="{% url 'studenttest_delete' test.pk %}">usuń</a></p>
     {% endfor %}
 
-    <a href="{% url 'studenttest_create' %}">Nowy test</a>
+
     <h3>Testy:</h3>
 
      <div class="container-fluid" id="dashborad-container">
@@ -22,7 +30,7 @@
             <th scope="col">Lesson</th>
             <th scope="col">Author</th>
             <th scope="col">Question</th>
-            <th scope="col">Answer_1</th>
+            <th scope="col">Details</th>
             <th scope="col">Update</th>
             <th scope="col">Delete</th>
           </thead>
@@ -32,19 +40,19 @@
 
                 <tr >
                     <td>{{ test.pk }}</td>
-                    <td>{{ test.lesson }}</td>
+                    <td>{{ test }}</td>
                      <td>{{ test.author }}</td>
-                      <td>  {{ test.question }}      </td>
-                        <td>  {{ test.answer_1 }}      </td>
+
+
 
                     <td>
-                        <a href="{% url 'test_detail' test.pk %}">link-details</a>
+                        <a href="{% url 'studenttest_detail' test.pk %}">link-details</a>
                     </td>
                     <td>
-                        <a href="{% url 'test_update' test.pk %}">link-Update</a>
+                        <a href="{% url 'studenttest_update' test.pk %}">link-Update</a>
                     </td>
                     <td>
-                        <a href="{% url 'test_delete' test.pk %}">link-Delete</a>
+                        <a href="{% url 'studenttest_delete' test.pk %}">link-Delete</a>
                     </td>
 
 
@@ -57,6 +65,6 @@
 
     </div>
 
-       <a href="{% url 'message_create' %}">Nowa wiadomość</a>
+      <a href="{% url 'studenttest_create' %}">Nowy test</a>
 
 {% endblock content %}

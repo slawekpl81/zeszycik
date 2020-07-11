@@ -1,11 +1,12 @@
 
-{% extends 'dashboard.html' %}
+{% extends 'dashboard2.html' %}
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/index.css' %}">
 
-{% block content %}
+{% block title %}
 
-    <h3>Wiadomości:</h3>
+
+
 
      <div class="container-fluid" id="dashborad-container">
 
@@ -53,5 +54,5 @@
        <a href="{% url 'message_create' %}">Nowa wiadomość</a>
 
 
-{% endblock content %}
+{% endblock title %}
 
