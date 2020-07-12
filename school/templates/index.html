@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load crispy_forms_tags%}
 
 <link rel="stylesheet" href="{% static 'css/index.css' %}">
 
@@ -47,11 +48,12 @@
                         </button>
                       </div>
                       <div class="modal-body" >
-                                    {{ formSignup }}
-                        ...
+                                    {{ formSignup | crispy }}
+
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          <button type="button" class="btn btn-primary">Sign up</button>
 
                       </div>
                     </div>

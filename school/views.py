@@ -6,12 +6,26 @@ from django.views.generic import *
 from .models import *
 from .forms import *
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+from django.db import IntegrityError
 
 
 # Create your views here.
 
 def newsignup(request):
-    return render(request,'index.html', {"formSignup":UserCreationForm})
+    if request.model=="POST":
+        if request.POST.get('password')==request.POST.get('password2'):
+            try:
+                saveuser =User.objects.create(request.POST.get('username'),password=request.POST.get('password'))
+                saveuser.save()
+                return render(request, 'index.html',{"formSignup": UserCreationForm(), "info": "The user" + request.POST.get('username') + "Is created Sucessfully" })
+            except IntegrityError:
+                return render(request, 'index.html',{"formSignup": UserCreationForm(), "info": "The user" + request.POST.get('username')+ "Is already exists"})
+        else:
+            return render(request, 'index.html', {"formSignup": UserCreationForm(),"error":"The password are not matching .."})
+    else:
+
+        return render(request,'index.html', {"formSignup":UserCreationForm})
 
 def index(request):
     return render(request, 'index.html', {})
