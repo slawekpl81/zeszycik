@@ -54,13 +54,12 @@
                               </div>
                             </div>
                     </td>
-                    {% if user.groups.all.0.name == 'administrator' %}
-                        {% if user.groups.all.0.name == 'teachers' %}
+                    {% if user.groups.all.0.name == 'administrator' or user.groups.all.0.name == 'teachers' %}
                     <td>
                         <a href="{% url 'lesson_update' lesson.pk %}"class="btn btn-primary active" role="button" aria-pressed="true">Update</a>
                     </td>
                             {% endif %}
-                        {% endif %}
+
                     {% if user.groups.all.0.name == 'students' %}
                                         <td>
                         <a href="#"class="btn btn-primary disabled" role="button" aria-pressed="true">Update</a>
