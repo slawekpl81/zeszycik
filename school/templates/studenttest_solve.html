@@ -1,15 +1,17 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load crispy_forms_tags%}
 <link rel="stylesheet" href="{% static 'css/index.css' %}">
 
 {% block content %}
     <h1>Wybierz poprawną odpowiedź:</h1>
-{#    <form method="post">#}
-    <form  method="post" enctype="multipart/form-data">
+    <form  method="post">
         {% csrf_token %}
-        {{ form }}
+        <table>
+            {{ form.as_table }}
+        </table>
+
         <input type="submit" value="submit">
-{#        {{ form.answer_right.value}}#}
 
     </form>
 

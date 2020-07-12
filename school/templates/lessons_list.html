@@ -21,9 +21,7 @@
             <th scope="col">Science materials</th>
           </thead>
           <tbody>
-
             {% for lesson in lessons %}
-
                 <tr >
                     <td>{{ lesson.pk }}</td>
                      <td>{{ lesson.name }}</td>
@@ -55,14 +53,19 @@
                                 </div>
                               </div>
                             </div>
-
                     </td>
+                    {% if user.groups.all.0.name == 'administrator' or user.groups.all.0.name == 'teachers' %}
                     <td>
                         <a href="{% url 'lesson_update' lesson.pk %}"class="btn btn-primary active" role="button" aria-pressed="true">Update</a>
                     </td>
+                            {% endif %}
 
+                    {% if user.groups.all.0.name == 'students' %}
+                                        <td>
+                        <a href="#"class="btn btn-primary disabled" role="button" aria-pressed="true">Update</a>
+                    </td>
+                    {% endif %}
                     <td>
-
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal1-{{ lesson.pk }}">
                           Delete
                         </button>
@@ -87,25 +90,19 @@
                                   </div>
                                   <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-
                                   </div>
                                 </div>
                               </div>
                             </div>
-
                     </td>
                     <td>
                         <a href="{% url 'lesson_data' lesson.pk %}"class="btn btn-primary active" role="button" aria-pressed="true">Data</a>
                     </td>
-
                 </tr>
             {% endfor %}
-
           </tbody>
       </table>
     </div>
-
     </div>
     <!-- Modal -->
-
 {% endblock title %}
