@@ -21,9 +21,8 @@ class SchoolUser(models.Model):
         self.grades += str(grade)
 
     def mean_of_grades(self):
-        mean = reduce(lambda sum_of, grade: int(sum_of)+int(grade), self.grades) / len(self.grades)
+        mean = reduce(lambda sum_of, grade: int(sum_of) + int(grade), self.grades) / len(self.grades)
         return f'{mean :.2f}'
-
 
     def __str__(self):
         return f'{self.user.first_name} {self.user.last_name} - {self.permissions}'
@@ -50,6 +49,7 @@ class Message(models.Model):
     def __str__(self):
         return f'OD:{self.author} DO:{self.target} Z: {self.created}'
 
+
 class StudentTest(models.Model):
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
     author = models.ForeignKey(SchoolUser, on_delete=models.DO_NOTHING)
@@ -64,12 +64,10 @@ class StudentTest(models.Model):
         return f'{self.question[:30]} odpowiedzi:{self.answer_1}, {self.answer_2}, {self.answer_3}, {self.answer_4}'
 
 
-
 class Exam(models.Model):
     test = models.ForeignKey(StudentTest, on_delete=models.CASCADE)
     student = models.ForeignKey(SchoolUser, on_delete=models.CASCADE)
     answer = models.CharField(max_length=5)
-
 
     @property
     def passed(self):

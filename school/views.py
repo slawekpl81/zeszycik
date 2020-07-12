@@ -137,7 +137,7 @@ class StudentTestSolveView(CreateView):
     template_name = 'studenttest_solve.html'
     model = Exam
     form_class = StudentTestSolveForm
-    success_url = reverse_lazy('studenttest_list')
+    success_url = reverse_lazy('exams')
 
 class ExamListView(ListView):
     template_name = 'exam_list.html'

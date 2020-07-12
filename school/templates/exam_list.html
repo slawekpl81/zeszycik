@@ -6,10 +6,11 @@
 {% block content %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
     <h3>Wyniki testów:</h3>
-    {% for exam in exams %}
-        <p>{{ exam.test }}-{{ exam }}
-    {% endfor %}
-
+    {% if exams %}
+        {% for exam in exams %}
+            <p>{{ exam.test }}-{{ exam }}
+        {% endfor %}
+    {% endif %}
 
 
 {% endblock content %}
