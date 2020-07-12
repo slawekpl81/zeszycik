@@ -22,16 +22,16 @@
           </thead>
           <tbody>
 
-            {% for lessons in lessons %}
+            {% for lesson in lessons %}
 
                 <tr >
-                    <td>{{ lessons.pk }}</td>
-                     <td>{{ lessons.name }}</td>
+                    <td>{{ lesson.pk }}</td>
+                     <td>{{ lesson.name }}</td>
                      <td>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal{{ lesson.pk }}">
                           Details
                         </button>
-                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="exampleModal{{ lesson.pk }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                               <div class="modal-dialog">
                                 <div class="modal-content">
                                   <div class="modal-header">
@@ -41,12 +41,16 @@
                                     </button>
                                   </div>
                                       <div class="modal-body">
-                                          test
-                                          <a href="{% url 'lesson_detail' lessons.pk %}"></a>
+                                                Name: {{ lesson.name }}<br>
+                                                Description: {{ lesson.description }}<br>
+                                                Author: {{ lesson.teacher }}<br>
+                                            {#    {{ lesson.students.get_queryset }} <br>#}
+                                            {#    {{ lesson.date }}<br>#}
+                                            {#    {{ lesson.data }}<br>#}
+                                          <a href="{% url 'lesson_detail' lesson.pk %}"></a>
                                       </div>
                                   <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-
                                   </div>
                                 </div>
                               </div>
@@ -54,15 +58,15 @@
 
                     </td>
                     <td>
-                        <a href="{% url 'lesson_update' lessons.pk %}"class="btn btn-primary active" role="button" aria-pressed="true">Update</a>
+                        <a href="{% url 'lesson_update' lesson.pk %}"class="btn btn-primary active" role="button" aria-pressed="true">Update</a>
                     </td>
 
                     <td>
 
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal1">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal1-{{ lesson.pk }}">
                           Delete
                         </button>
-                            <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="exampleModal1-{{ lesson.pk }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                               <div class="modal-dialog">
                                 <div class="modal-content">
                                   <div class="modal-header">
@@ -72,10 +76,11 @@
                                     </button>
                                   </div>
                                   <div class="modal-body">
-                                    <form method="post">
+                                    <form action="{% url 'lesson_delete' lesson.pk %}" method="post">
                                         {% csrf_token %}
                                         <p>
-                                          Napewno chcesz usunąć zajęcia z bazy?
+                                          Are you sure you want to delete course? <br>
+                                            -{{ lesson.name }} of {{ lesson.teacher }}
                                         </p>
                                         <input type="submit" value="Submit">
                                       </form>
@@ -90,7 +95,7 @@
 
                     </td>
                     <td>
-                        <a href="{% url 'lesson_data' lessons.pk %}"class="btn btn-primary active" role="button" aria-pressed="true">Data</a>
+                        <a href="{% url 'lesson_data' lesson.pk %}"class="btn btn-primary active" role="button" aria-pressed="true">Data</a>
                     </td>
 
                 </tr>

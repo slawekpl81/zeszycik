@@ -1,15 +1,16 @@
-{% extends 'index.html' %}
+{% extends 'dashboard.html' %}
 {% load static %}
 
 
-{% block content %}
-
-    {{ lesson.name }}<br>
-    {{ lesson.description }}<br>
-    {{ lesson.teacher }}<br>
-    {{ lesson.date }}<br>
-    {{ lesson.data.url }}<br>
-    <embed src="{% static lesson.data.url %}" type="application/pdf" height="700px" width="50%">
-
-
-{% endblock content %}
+{% block title %}
+    {% if lesson.data %}
+    {#    {{ lesson.name }}<br>#}
+    {#    {{ lesson.description }}<br>#}
+    {#    {{ lesson.teacher }}<br>#}
+    {#    {{ lesson.date }}<br>#}
+    {#    {{ lesson.data.url }}<br>#}
+        <embed src="{% static lesson.data.url %}" type="application/pdf" height="700px" width="50%">
+    {% else %}
+        <h2>No data available!</h2>
+    {% endif %}
+{% endblock %}
