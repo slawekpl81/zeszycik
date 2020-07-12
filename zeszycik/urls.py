@@ -16,11 +16,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.contrib.auth.views import LoginView, LogoutView
+
+from school import views
 from school.views import *
 from django.conf.urls.static import static
 from django.conf import settings
 
+
 urlpatterns = [
+    path('', views.newsignup),
     path('admin/', admin.site.urls),
     path('', index, name='index'),
     path('login/', LoginView.as_view(), name='login'),

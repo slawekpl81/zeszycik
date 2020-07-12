@@ -26,7 +26,7 @@
                         content here', making it look like readable English. Many desktop publishing</p>
                 </div>
                 <br>
-                <a class="btn btn-outline-secondary btn-lg showcase-btn"> Sign Up </a>
+                <a class="btn btn-outline-secondary btn-lg showcase-btn" data-toggle="modal" data-target="#Modalsignup"> Sign Up </a>
 
             </div>
         </div>
@@ -34,6 +34,29 @@
 
 
 </section>
+
+
+                               <!-- Modal -->
+                <div class="modal fade" id="Modalsignup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Sign up</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body" >
+                                    {{ formSignup }}
+                        ...
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        {{ formSignup }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
 <section id="memento">
     <div class="container">

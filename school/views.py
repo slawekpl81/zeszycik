@@ -5,10 +5,13 @@ from django.contrib.auth.views import LoginView
 from django.views.generic import *
 from .models import *
 from .forms import *
+from django.contrib.auth.forms import UserCreationForm
 
 
 # Create your views here.
 
+def newsignup(request):
+    return render(request,'index.html', {"formSignup":UserCreationForm})
 
 def index(request):
     return render(request, 'index.html', {})
