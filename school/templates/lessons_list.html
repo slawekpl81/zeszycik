@@ -16,14 +16,17 @@
             <th scope="col">No</th>
             <th scope="col">Curses</th>
             <th scope="col">Details</th>
+            <th scope="col">Science materials</th>
+            {% if user.groups.all.0.name == 'administrator' or user.groups.all.0.name == 'teachers' %}
             <th scope="col">Update</th>
             <th scope="col">Delete</th>
-            <th scope="col">Science materials</th>
+            {% endif %}
+
           </thead>
           <tbody>
             {% for lesson in lessons %}
                 <tr >
-                    <td>{{ lesson.pk }}</td>
+                    <td>{{  forloop.counter }}</td>
                      <td>{{ lesson.name }}</td>
                      <td>
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal{{ lesson.pk }}">
@@ -54,18 +57,19 @@
                               </div>
                             </div>
                     </td>
+                    <td>
+                        <a href="{% url 'lesson_data' lesson.pk %}"class="btn btn-primary active" role="button" aria-pressed="true">Data</a>
+                    </td>
                     {% if user.groups.all.0.name == 'administrator' or user.groups.all.0.name == 'teachers' %}
                     <td>
                         <a href="{% url 'lesson_update' lesson.pk %}"class="btn btn-primary active" role="button" aria-pressed="true">Update</a>
                     </td>
-                            {% endif %}
 
-                    {% if user.groups.all.0.name == 'students' %}
-                                        <td>
-                        <a href="#"class="btn btn-primary disabled" role="button" aria-pressed="true">Update</a>
-                    </td>
-                    {% endif %}
-                    <td>
+                        <td>
+                                <a href="#"class="btn btn-primary disabled" role="button" aria-pressed="true">Update</a>
+                        </td>
+
+                            <td>
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal1-{{ lesson.pk }}">
                           Delete
                         </button>
@@ -95,9 +99,8 @@
                               </div>
                             </div>
                     </td>
-                    <td>
-                        <a href="{% url 'lesson_data' lesson.pk %}"class="btn btn-primary active" role="button" aria-pressed="true">Data</a>
-                    </td>
+                    {% endif %}
+
                 </tr>
             {% endfor %}
           </tbody>
