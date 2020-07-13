@@ -55,7 +55,7 @@
                       <div class="modal-body" >
 
                               {% csrf_token %}
-                              {{ formSignup }}
+                              {{ formSignup | crispy }}
 
 
                       </div>

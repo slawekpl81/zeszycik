@@ -1,4 +1,5 @@
 {% load static %}
+{% load crispy_forms_tags%}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -32,8 +33,40 @@
             <a class="btn btn-outline-success my-2 my-sm-0" href="{% url 'logout' %}">LOGOUT</a>
         {% else %}
             <a class="btn btn-outline-success my-2 my-sm-0" href="{% url 'login' %}" >LOGIN</a>
+
+           <!-- <a class="btn btn-outline-success my-2 my-sm-0" data-toggle="modal" data-target="#userlogin" >LOGIN</a>  -->
         {% endif %}
       </form>
+
+
+
+             <!--<form method="post">
+                <div class="modal fade" id="userlogin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel" >Log in</h5>
+
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body" >
+                            <form method="post" >
+                            {#   {% csrf_token %} #}
+                            {#  {{ form | crispy }}#}
+
+                            </form>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          <button type="submit" class="btn btn-primary">Sign up</button>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                </form>-->
 
 </div>
 </nav>
