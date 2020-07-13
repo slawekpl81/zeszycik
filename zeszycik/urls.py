@@ -24,11 +24,13 @@ from django.conf import settings
 
 
 urlpatterns = [
-    path('', views.newsignup),
+
+    path('', views.newsignup, name='test'),
+    path('', views.newsignin),
     path('admin/', admin.site.urls),
     path('', index, name='index'),
     path('login/', LoginView.as_view(), name='login'),
-    path('logout/', LogoutView.as_view(template_name='index.html'), name='logout'),
+    path('logout/', LogoutView.as_view(next_page='test'), name='logout'),
     path('accounts/profile/', dashboard, name='dashboard'),
 
     path('administrator', Administrator.as_view(), name='administrator'),

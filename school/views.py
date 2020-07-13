@@ -8,13 +8,15 @@ from .forms import *
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.db import IntegrityError
+from school.forms import LoginForm
 
 
 # Create your views here.
 
 def newsignup(request):
-
-                    return render(request,'index.html', {"formSignup":UserCreationForm})
+    return render(request,'index.html', {"formSignup":UserCreationForm})
+def newsignin(request):
+    return render(request,'index.html', {"formSignin":UserCreationForm})
 
 def index(request):
     return render(request, 'index.html', {})
