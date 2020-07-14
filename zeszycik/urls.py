@@ -59,5 +59,6 @@ urlpatterns = [
     path('exams',                   ExamListView.as_view(),  name='exams'),
 
     path('calendar', CalendarView.as_view(), name='calendar'),
+    path('library', LibraryView.as_view(), name='library'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

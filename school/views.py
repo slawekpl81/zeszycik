@@ -1,3 +1,4 @@
+
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -74,11 +75,8 @@ class MessageListView(ListView):
     model = Message
     context_object_name = 'messages'
 
-    # def get_context_data(self, *args, object_list=None, **kwargs):
-    #     context = super(MessageListView, self).get_context_data(*args, **kwargs)
-    #
-    #     login_user = User.objects.filter(user=self.request.user)
-
+    def get_queryset(self):
+        return Message.objects.filter(target=self.request.user)
 
 
 class MessageDetailView(DetailView):
@@ -92,6 +90,11 @@ class MessageCreateView(CreateView):
     models = Message
     form_class = MessageForm
     success_url = reverse_lazy('messages_list')
+
+    def get_form_kwargs(self):
+        form = super(MessageCreateView, self).get_form_kwargs()
+        form['user'] = self.request.user.username
+        return form
 
 
 class MessageUpdateView(UpdateView):
@@ -146,16 +149,29 @@ class StudentTestSolveView(CreateView):
     model = Exam
     form_class = StudentTestSolveForm
     success_url = reverse_lazy('exams')
+    def get_form_kwargs(self):
+        form = super(StudentTestSolveView, self).get_form_kwargs()
+        form['user'] = self.request.user.username
+        return form
 
 class ExamListView(ListView):
     template_name = 'exam_list.html'
     model = Exam
     context_object_name = 'exams'
+    def get_queryset(self):
+        return Exam.objects.filter(student=self.request.user)
 # ============================================================================================
 class CalendarView(ListView):
     template_name = 'calendar.html'
     model = Lesson
     context_object_name = 'lessons'
+# ============================================================================================
+class LibraryView(ListView):
+    template_name = 'library.html'
+    model = Lesson
+    context_object_name = 'books'
+    # def get_queryset(self):
+    #     return Lesson.objects.all().values_list('data', flat=True)
 # ============================================================================================
 def teacher(request):
     return render(request, 'teacher.html', {})

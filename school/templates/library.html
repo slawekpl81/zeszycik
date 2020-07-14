@@ -1,0 +1,43 @@
+{% extends 'dashboard2.html' %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+
+
+{% block title %}
+
+
+
+    <div class="container-fluid" id="dashborad-container">
+
+    <h3>Library:</h3>
+
+    <div class=" table table-responsive-md">
+      <table class="table">
+          <thead>
+            <th scope="col">No</th>
+            <th scope="col">Book</th>
+            <th scope="col">Link</th>
+
+          </thead>
+          <tbody>
+
+            {% for book in books %}
+
+                <tr >
+                    <td>{{ forloop.counter }}</td>
+                     <td>{{ book.data }}</td>
+                    <td><a href="{% url 'lesson_data' book.pk %}"class="btn btn-primary active" role="button" aria-pressed="true">VIEW</a></td>
+
+
+                </tr>
+            {% endfor %}
+
+          </tbody>
+      </table>
+    </div>
+
+    </div>
+
+
+{% endblock title %}
