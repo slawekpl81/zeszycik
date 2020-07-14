@@ -154,6 +154,20 @@ class StudentTestSolveView(CreateView):
         form['user'] = self.request.user.username
         return form
 
+
+class StudentTestSolveUpdateView(UpdateView):
+    template_name = 'studenttest_solve_update.html'
+    model = Exam
+    form_class = StudentTestSolveUpdateForm
+    success_url = reverse_lazy('exams')
+
+    def get_context_data(self, **kwargs):
+        context = super(StudentTestSolveUpdateView, self).get_context_data(**kwargs)
+        context['test'] = StudentTest.objects.filter(id=self.object.test.id)
+        print(f'test!!!-{context["test"]}')
+        return context
+
+
 class ExamListView(ListView):
     template_name = 'exam_list.html'
     model = Exam
@@ -170,8 +184,6 @@ class LibraryView(ListView):
     template_name = 'library.html'
     model = Lesson
     context_object_name = 'books'
-    # def get_queryset(self):
-    #     return Lesson.objects.all().values_list('data', flat=True)
 # ============================================================================================
 def teacher(request):
     return render(request, 'teacher.html', {})

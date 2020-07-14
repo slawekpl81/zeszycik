@@ -17,7 +17,7 @@ class SubmittableAuthenticationForm(AuthenticationForm):
 class LessonForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['students'].queryset= User.objects.filter(groups__name='students')
+        self.fields['students'].queryset = User.objects.filter(groups__name='students')
         self.fields['teacher'].queryset = User.objects.filter(groups__name='teachers')
 
     class Meta:
@@ -47,6 +47,7 @@ class StudentTestForm(ModelForm):
 
 
 class StudentTestSolveForm(ModelForm):
+    """create new test-solve"""
     def __init__(self, user=None, *args, **kwargs):
         super().__init__(*args, **kwargs)
         if user:
@@ -54,4 +55,13 @@ class StudentTestSolveForm(ModelForm):
 
     class Meta:
         model = Exam
-        fields = '__all__'
+        fields = ['test', 'student']
+
+class StudentTestSolveUpdateForm(ModelForm):
+    """solve test"""
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+    class Meta:
+        model = Exam
+        fields = ['answer']

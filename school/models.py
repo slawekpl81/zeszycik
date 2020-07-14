@@ -61,7 +61,8 @@ class StudentTest(models.Model):
     answer_4 = models.CharField(max_length=150, default='')
 
     def __str__(self):
-        return f'{self.question[:30]} odpowiedzi:{self.answer_1}, {self.answer_2}, {self.answer_3}, {self.answer_4}'
+        return f'{self.lesson.name}-{self.question[:30]}'
+
 
 
 class Exam(models.Model):

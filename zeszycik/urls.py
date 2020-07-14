@@ -55,7 +55,8 @@ urlpatterns = [
     path('studenttest/update/<pk>', StudentTestUpdateView.as_view(), name='studenttest_update'),
     path('studenttest/delete/<pk>', StudentTestDeleteView.as_view(), name='studenttest_delete'),
     path('studenttest/create',      StudentTestCreateView.as_view(), name='studenttest_create'),
-    path('studenttest/solve',       StudentTestSolveView.as_view(),  name='studenttest_solve'),
+    path('studenttest/solve',       StudentTestSolveView.as_view(), name='studenttest_solve'),
+    path('studenttest/solve/<pk>',  StudentTestSolveUpdateView.as_view(),  name='studenttest_solve_update'),
     path('exams',                   ExamListView.as_view(),  name='exams'),
 
     path('calendar', CalendarView.as_view(), name='calendar'),
