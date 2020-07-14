@@ -148,12 +148,15 @@ class StudentTestSolveView(CreateView):
     template_name = 'studenttest_solve.html'
     model = Exam
     form_class = StudentTestSolveForm
-    success_url = reverse_lazy('exams')
+    
     def get_form_kwargs(self):
         form = super(StudentTestSolveView, self).get_form_kwargs()
         form['user'] = self.request.user.username
         return form
 
+    def get_success_url(self):
+        test_id = self.object.id
+        return reverse_lazy('studenttest_solve_update', kwargs={'pk' : test_id})
 
 class StudentTestSolveUpdateView(UpdateView):
     template_name = 'studenttest_solve_update.html'
