@@ -1,0 +1,45 @@
+{% extends 'dashboard2.html' %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+
+
+{% block title %}
+
+
+
+    <div class="container-fluid" id="dashborad-container">
+
+    <h3>Users:</h3>
+
+    <div class=" table table-responsive-md">
+      <table class="table">
+          <thead>
+            <th scope="col">No</th>
+            <th scope="col">Username</th>
+            <th scope="col">Group</th>
+          <th scope="col">Update</th>
+
+          </thead>
+          <tbody>
+
+            {% for user in users %}
+
+                <tr >
+                    <td>{{ forloop.counter }}</td>
+                     <td>{{ user.username }}</td>
+                    <td>{{ user.groups.all.0.name }}</td>
+                    <td><a href="{% url 'user_update' user.pk %}"class="btn btn-primary active" role="button" aria-pressed="true">UPDATE</a></td>
+
+
+                </tr>
+            {% endfor %}
+
+          </tbody>
+      </table>
+    </div>
+
+    </div>
+
+
+{% endblock title %}

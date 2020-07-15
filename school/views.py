@@ -29,8 +29,18 @@ class Administrator(ListView):
     template_name = 'administrator.html'
     model = Lesson
     context_object_name = 'lessons'
+# ============================================================================================
+class UsersListView(ListView):
+    template_name = 'users.html'
+    model = User
+    context_object_name = 'users'
 
 
+class UsersUpdateView(UpdateView):
+    template_name = 'form.html'
+    model = User
+    form_class = UsersUpdateForm
+    success_url = reverse_lazy('users_list')
 # ============================================================================================
 class LessonsListView(ListView):
     template_name = 'lessons_list.html'
@@ -60,6 +70,19 @@ class LessonsUpdateView(UpdateView):
     model = Lesson
     form_class = LessonForm
     success_url = reverse_lazy('lessons_list')
+
+class LessonsAddStudentView(UpdateView):
+    template_name = 'form.html'
+    model = Lesson
+    form_class = LessonAddStudentForm
+    #success_url = reverse_lazy('lessons_list')
+
+    def get_success_url(self):
+        user = self.request.user
+        lesson = self.object
+        lesson.students.add(user)
+        lesson.save()
+        return reverse_lazy('lessons_list')
 
 
 class LessonsDeleteView(DeleteView):
@@ -177,6 +200,16 @@ class ExamListView(ListView):
     context_object_name = 'exams'
     def get_queryset(self):
         return Exam.objects.filter(student=self.request.user)
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(ExamListView, self).get_context_data()
+        all_exam = Exam.objects.filter(student=self.request.user)
+        ok_exam = Exam.objects.filter(student=self.request.user).filter(passed_exam=True)
+        efficiency = len(ok_exam) / len(all_exam) * 100
+        context['efficiency'] = f'{efficiency:.2f}'
+        return context
+
+
 # ============================================================================================
 class CalendarView(ListView):
     template_name = 'calendar.html'

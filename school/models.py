@@ -69,6 +69,7 @@ class Exam(models.Model):
     test = models.ForeignKey(StudentTest, on_delete=models.CASCADE)
     student = models.ForeignKey(User, on_delete=models.CASCADE)
     answer = models.CharField(max_length=5)
+    passed_exam = models.BooleanField(default=False)
 
     @property
     def passed(self):
@@ -77,6 +78,8 @@ class Exam(models.Model):
         else:
             self._passed = False
 
+        self.passed_exam = self._passed
+        self.save()
         return self._passed
 
     def __str__(self):

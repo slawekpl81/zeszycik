@@ -25,6 +25,15 @@ class LessonForm(ModelForm):
         fields = '__all__'
 
 
+class LessonAddStudentForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+    class Meta:
+        model = Lesson
+        fields = []
+
+
 class MessageForm(ModelForm):
     def __init__(self, user=None, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -65,3 +74,12 @@ class StudentTestSolveUpdateForm(ModelForm):
     class Meta:
         model = Exam
         fields = ['answer']
+
+
+class UsersUpdateForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+    class Meta:
+        model = User
+        fields = ['username','first_name','last_name','groups','email','last_login','date_joined']

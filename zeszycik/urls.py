@@ -33,6 +33,9 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(next_page='test'), name='logout'),
     path('accounts/profile/', dashboard, name='dashboard'),
 
+    path('users', UsersListView.as_view(), name='users_list'),
+    path('users/update/<pk>', UsersUpdateView.as_view(), name='user_update'),
+
     path('administrator', Administrator.as_view(), name='administrator'),
     path('teacher', teacher, name='teacher'),
     path('student', student, name='student'),
@@ -43,6 +46,7 @@ urlpatterns = [
     path('lesson/update/<pk>', LessonsUpdateView.as_view(), name='lesson_update'),
     path('lesson/delete/<pk>', LessonsDeleteView.as_view(), name='lesson_delete'),
     path('lessons/create',     LessonsCreateView.as_view(), name='lesson_create'),
+    path('lessons/addstudent/<pk>', LessonsAddStudentView.as_view(), name='lesson_add_student'),
 
     path('messages', MessageListView.as_view(), name='messages_list'),
     path('message/detail/<pk>', MessageDetailView.as_view(), name='message_detail'),
