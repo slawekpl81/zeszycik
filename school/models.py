@@ -31,18 +31,18 @@ class SchoolUser(models.Model):
 class Lesson(models.Model):
     name = models.CharField(max_length=150, unique=True, blank=False)
     description = models.CharField(max_length=250)
-    teacher = models.ForeignKey(SchoolUser, on_delete=models.SET_NULL, null=True, blank=True, related_name='teacher')
+    teacher = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='teacher')
     date = models.DateTimeField(default=timezone.now)
     data = models.FileField(blank=True, null=True)
-    students = models.ManyToManyField(SchoolUser, null=True, blank=True, related_name='students')
+    students = models.ManyToManyField(User, null=True, blank=True, related_name='students')
 
     def __str__(self):
         return self.name
 
 
 class Message(models.Model):
-    author = models.ForeignKey(SchoolUser, on_delete=models.DO_NOTHING, related_name='author')
-    target = models.ForeignKey(SchoolUser, on_delete=models.DO_NOTHING, related_name='target')
+    author = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name='author')
+    target = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name='target')
     text = models.CharField(max_length=250)
     created = models.DateTimeField(default=timezone.now)
 
@@ -52,7 +52,7 @@ class Message(models.Model):
 
 class StudentTest(models.Model):
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
-    author = models.ForeignKey(SchoolUser, on_delete=models.DO_NOTHING)
+    author = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     question = models.CharField(max_length=250)
     answer_right = models.CharField(max_length=5, default='')
     answer_1 = models.CharField(max_length=150, default='')
@@ -61,13 +61,15 @@ class StudentTest(models.Model):
     answer_4 = models.CharField(max_length=150, default='')
 
     def __str__(self):
-        return f'{self.question[:30]} odpowiedzi:{self.answer_1}, {self.answer_2}, {self.answer_3}, {self.answer_4}'
+        return f'{self.lesson.name}-{self.question[:30]}'
+
 
 
 class Exam(models.Model):
     test = models.ForeignKey(StudentTest, on_delete=models.CASCADE)
-    student = models.ForeignKey(SchoolUser, on_delete=models.CASCADE)
+    student = models.ForeignKey(User, on_delete=models.CASCADE)
     answer = models.CharField(max_length=5)
+    passed_exam = models.BooleanField(default=False)
 
     @property
     def passed(self):
@@ -76,6 +78,8 @@ class Exam(models.Model):
         else:
             self._passed = False
 
+        self.passed_exam = self._passed
+        self.save()
         return self._passed
 
     def __str__(self):

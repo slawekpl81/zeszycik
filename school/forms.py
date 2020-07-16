@@ -17,15 +17,28 @@ class SubmittableAuthenticationForm(AuthenticationForm):
 class LessonForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields['students'].queryset = User.objects.filter(groups__name='students')
+        self.fields['teacher'].queryset = User.objects.filter(groups__name='teachers')
 
     class Meta:
         model = Lesson
         fields = '__all__'
 
 
-class MessageForm(ModelForm):
+class LessonAddStudentForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+    class Meta:
+        model = Lesson
+        fields = []
+
+
+class MessageForm(ModelForm):
+    def __init__(self, user=None, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if user:
+            self.fields['author'].queryset = User.objects.filter(username=user)
 
     class Meta:
         model = Message
@@ -35,6 +48,7 @@ class MessageForm(ModelForm):
 class StudentTestForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields['author'].queryset = User.objects.filter(groups__name='teachers')
 
     class Meta:
         model = StudentTest
@@ -42,9 +56,30 @@ class StudentTestForm(ModelForm):
 
 
 class StudentTestSolveForm(ModelForm):
+    """create new test-solve"""
+    def __init__(self, user=None, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if user:
+            self.fields['student'].queryset = User.objects.filter(username=user)
+
+    class Meta:
+        model = Exam
+        fields = ['test', 'student']
+
+class StudentTestSolveUpdateForm(ModelForm):
+    """solve test"""
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
     class Meta:
         model = Exam
-        fields = '__all__'
+        fields = ['answer']
+
+
+class UsersUpdateForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+    class Meta:
+        model = User
+        fields = ['username','first_name','last_name','groups','email','last_login','date_joined']

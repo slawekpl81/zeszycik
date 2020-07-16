@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags%}
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
+
+{% block content %}
+    <h1>Type correct value:</h1>
+    <form  method="post">
+        {% csrf_token %}
+                        {% if test %}
+                <p><h3>Question: {{ test.0.question }}</h3></p>
+                    <p>Answer 1: {{ test.0.answer_1 }}</p>
+                    <p>Answer 2: {{ test.0.answer_2 }}</p>
+                    <p>Answer 3: {{ test.0.answer_3 }}</p>
+                    <p>Answer 4: {{ test.0.answer_4 }}</p>
+                {% endif %}
+        <table>
+            {{ form.as_p }}<br>
+        </table>
+
+        <input type="submit" value="submit">
+
+    </form>
+
+{% endblock content %}

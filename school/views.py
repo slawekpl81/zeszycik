@@ -1,4 +1,5 @@
-from django.shortcuts import render,redirect
+
+from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
@@ -15,9 +16,8 @@ from school.forms import LoginForm
 
 def newsignup(request):
     return render(request,'index.html', {"formSignup":UserCreationForm})
-
 def newsignin(request):
-    return render(request,'index.html', {"formSignin":LoginForm})
+    return render(request,'index.html', {"formSignin":UserCreationForm})
 
 def index(request):
     return render(request, 'index.html', {})
@@ -29,8 +29,18 @@ class Administrator(ListView):
     template_name = 'administrator.html'
     model = Lesson
     context_object_name = 'lessons'
+# ============================================================================================
+class UsersListView(ListView):
+    template_name = 'users.html'
+    model = User
+    context_object_name = 'users'
 
 
+class UsersUpdateView(UpdateView):
+    template_name = 'form.html'
+    model = User
+    form_class = UsersUpdateForm
+    success_url = reverse_lazy('users_list')
 # ============================================================================================
 class LessonsListView(ListView):
     template_name = 'lessons_list.html'
@@ -61,6 +71,19 @@ class LessonsUpdateView(UpdateView):
     form_class = LessonForm
     success_url = reverse_lazy('lessons_list')
 
+class LessonsAddStudentView(UpdateView):
+    template_name = 'form.html'
+    model = Lesson
+    form_class = LessonAddStudentForm
+    #success_url = reverse_lazy('lessons_list')
+
+    def get_success_url(self):
+        user = self.request.user
+        lesson = self.object
+        lesson.students.add(user)
+        lesson.save()
+        return reverse_lazy('lessons_list')
+
 
 class LessonsDeleteView(DeleteView):
     template_name = 'lessons_delete.html'
@@ -75,11 +98,8 @@ class MessageListView(ListView):
     model = Message
     context_object_name = 'messages'
 
-    # def get_context_data(self, *args, object_list=None, **kwargs):
-    #     context = super(MessageListView, self).get_context_data(*args, **kwargs)
-    #
-    #     login_user = User.objects.filter(user=self.request.user)
-
+    def get_queryset(self):
+        return Message.objects.filter(target=self.request.user)
 
 
 class MessageDetailView(DetailView):
@@ -93,6 +113,11 @@ class MessageCreateView(CreateView):
     models = Message
     form_class = MessageForm
     success_url = reverse_lazy('messages_list')
+
+    def get_form_kwargs(self):
+        form = super(MessageCreateView, self).get_form_kwargs()
+        form['user'] = self.request.user.username
+        return form
 
 
 class MessageUpdateView(UpdateView):
@@ -146,17 +171,55 @@ class StudentTestSolveView(CreateView):
     template_name = 'studenttest_solve.html'
     model = Exam
     form_class = StudentTestSolveForm
+    
+    def get_form_kwargs(self):
+        form = super(StudentTestSolveView, self).get_form_kwargs()
+        form['user'] = self.request.user.username
+        return form
+
+    def get_success_url(self):
+        test_id = self.object.id
+        return reverse_lazy('studenttest_solve_update', kwargs={'pk' : test_id})
+
+class StudentTestSolveUpdateView(UpdateView):
+    template_name = 'studenttest_solve_update.html'
+    model = Exam
+    form_class = StudentTestSolveUpdateForm
     success_url = reverse_lazy('exams')
+
+    def get_context_data(self, **kwargs):
+        context = super(StudentTestSolveUpdateView, self).get_context_data(**kwargs)
+        context['test'] = StudentTest.objects.filter(id=self.object.test.id)
+        print(f'test!!!-{context["test"]}')
+        return context
+
 
 class ExamListView(ListView):
     template_name = 'exam_list.html'
     model = Exam
     context_object_name = 'exams'
+    def get_queryset(self):
+        return Exam.objects.filter(student=self.request.user)
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(ExamListView, self).get_context_data()
+        all_exam = Exam.objects.filter(student=self.request.user)
+        ok_exam = Exam.objects.filter(student=self.request.user).filter(passed_exam=True)
+        efficiency = len(ok_exam) / len(all_exam) * 100
+        context['efficiency'] = f'{efficiency:.2f}'
+        return context
+
+
 # ============================================================================================
 class CalendarView(ListView):
     template_name = 'calendar.html'
     model = Lesson
     context_object_name = 'lessons'
+# ============================================================================================
+class LibraryView(ListView):
+    template_name = 'library.html'
+    model = Lesson
+    context_object_name = 'books'
 # ============================================================================================
 def teacher(request):
     return render(request, 'teacher.html', {})

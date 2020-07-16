@@ -17,6 +17,7 @@
             <th scope="col">Curses</th>
             <th scope="col">Details</th>
             <th scope="col">Science materials</th>
+            <th scope="col">Add to calendar</th>
             {% if user.groups.all.0.name == 'administrator' or user.groups.all.0.name == 'teachers' %}
             <th scope="col">Update</th>
             <th scope="col">Delete</th>
@@ -59,6 +60,9 @@
                     </td>
                     <td>
                         <a href="{% url 'lesson_data' lesson.pk %}"class="btn btn-primary active" role="button" aria-pressed="true">Data</a>
+                    </td>
+                    <td>
+                        <a href="{% url 'lesson_add_student' lesson.pk %}"class="btn btn-primary active" role="button" aria-pressed="true">add</a>
                     </td>
                     {% if user.groups.all.0.name == 'administrator' or user.groups.all.0.name == 'teachers' %}
                     <td>

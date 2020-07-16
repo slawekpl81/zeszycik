@@ -33,6 +33,9 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(next_page='test'), name='logout'),
     path('accounts/profile/', dashboard, name='dashboard'),
 
+    path('users', UsersListView.as_view(), name='users_list'),
+    path('users/update/<pk>', UsersUpdateView.as_view(), name='user_update'),
+
     path('administrator', Administrator.as_view(), name='administrator'),
     path('teacher', teacher, name='teacher'),
     path('student', student, name='student'),
@@ -43,6 +46,7 @@ urlpatterns = [
     path('lesson/update/<pk>', LessonsUpdateView.as_view(), name='lesson_update'),
     path('lesson/delete/<pk>', LessonsDeleteView.as_view(), name='lesson_delete'),
     path('lessons/create',     LessonsCreateView.as_view(), name='lesson_create'),
+    path('lessons/addstudent/<pk>', LessonsAddStudentView.as_view(), name='lesson_add_student'),
 
     path('messages', MessageListView.as_view(), name='messages_list'),
     path('message/detail/<pk>', MessageDetailView.as_view(), name='message_detail'),
@@ -55,9 +59,11 @@ urlpatterns = [
     path('studenttest/update/<pk>', StudentTestUpdateView.as_view(), name='studenttest_update'),
     path('studenttest/delete/<pk>', StudentTestDeleteView.as_view(), name='studenttest_delete'),
     path('studenttest/create',      StudentTestCreateView.as_view(), name='studenttest_create'),
-    path('studenttest/solve',       StudentTestSolveView.as_view(),  name='studenttest_solve'),
+    path('studenttest/solve',       StudentTestSolveView.as_view(), name='studenttest_solve'),
+    path('studenttest/solve/<pk>',  StudentTestSolveUpdateView.as_view(),  name='studenttest_solve_update'),
     path('exams',                   ExamListView.as_view(),  name='exams'),
 
     path('calendar', CalendarView.as_view(), name='calendar'),
+    path('library', LibraryView.as_view(), name='library'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
