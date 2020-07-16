@@ -7,8 +7,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Zeszycik</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'css/sidebar-toggler.css' %}">
+
 
     <!-- CSS only -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
@@ -18,69 +24,94 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/scrollreveal"></script>
+     <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
     <script>
         ScrollReveal({ reset: true });
     </script>
+
+
 </head>
 <body>
-<nav class="navbar navbar-expand-sm navbar-default navbar-fixed-top bg-dark justify-content-end mt">
-<div class="container-fluid">
-  <a class="navbar-brand " href="{% url 'index' %}">ZESZYCIK</a>
+        <nav class="navbar navbar-expand navbar-dark bg-dark"> <a href="#menu-toggle" id="menu-toggle" class="navbar-brand"><span class="navbar-toggler-icon pull-left"></span></a> <button class="navbar-toggler  pull-left" id="sidebar-toggle" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon pull-left"></span> </button>
+            <div class="collapse navbar-collapse" id="navbarsExample02">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active "> <a class="nav-link" href="{% url 'index' %}">Home <span class="sr-only">(current)</span></a> </li>
 
-      <form class="form-inline my-2 my-sm-0 " >
-        {% if user.is_authenticated %}
-            <a class="btn btn-outline-success padding " href="{% url 'dashboard' %}">Zalogowano: {{ user.username }} <span class="sr-only">(current)</span></a>
-            <a class="btn btn-outline-success my-2 my-sm-0" href="{% url 'logout' %}">LOGOUT</a>
-        {% else %}
-            <a class="btn btn-outline-success my-2 my-sm-0" href="{% url 'login' %}" >LOGIN</a>
+                </ul>
+                <!--<form class="form-inline my-2 my-md-0"> </form>-->
+                <form class="form-inline my-2 my-md-0 pr-0 float:right"  id="logowanie">
+                    {% if user.is_authenticated %}
+                        <a class="btn btn-outline-success padding " href="{% url 'lessons_list' %}">Zalogowano: {{ user.username }} <span class="sr-only">(current)</span></a>
+                        <a class="btn btn-outline-success my-2 my-sm-0" href="{% url 'logout' %}">LOGOUT</a>
+                    {% else %}
+                        <a class="btn btn-outline-success my-2 my-sm-0 float:right pull-left" href="{% url 'login' %}" >LOGIN</a>
 
-           <!-- <a class="btn btn-outline-success my-2 my-sm-0" data-toggle="modal" data-target="#userlogin" >LOGIN</a>  -->
-        {% endif %}
-      </form>
+                       <!-- <a class="btn btn-outline-success my-2 my-sm-0" data-toggle="modal" data-target="#userlogin" >LOGIN</a>  -->
 
 
+                    {% endif %}
+                </form>
+            </div>
+        </nav>
+            {% if user.is_authenticated %}
+                <div id="wrapper" class="toggled">
+                    <!-- Sidebar -->
+                    <div id="sidebar-wrapper">
+                        <ul class="sidebar-nav">
+                            <li class="sidebar-brand"> <a href="{% url 'lessons_list' %}"> Zeszycik </a> </li>
+                            <li> <a href="{% url 'lessons_list' %}">Curses</a> </li>
+                            <li> <a href="{% url 'studenttest_list' %}">Tests</a> </li>
+                            <li> <a href="{% url 'calendar' %}">Calendar</a> </li>
+                            <li> <a href="{% url 'messages_list' %}">Messages</a> </li>
 
-             <!--<form method="post">
-                <div class="modal fade" id="userlogin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel" >Log in</h5>
-
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      <div class="modal-body" >
-                            <form method="post" >
-                            {#   {% csrf_token %} #}
-                            {#  {{ form | crispy }}#}
-
-                            </form>
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                          <button type="submit" class="btn btn-primary">Sign up</button>
-
-                      </div>
+                        </ul>
                     </div>
-                  </div>
+
+            {% endif %}
+
+                    <div id="page-content-wrapper">
+                        <div class="container-fluid">
+                            {% block content %}
+                            {% endblock %}
+                        </div>
+                    </div>
                 </div>
-                </form>-->
 
-</div>
-</nav>
+        <script>
+                  $(function(){
+                    $("#menu-toggle").click(function(e) {
+                        e.preventDefault();
+                        $("#wrapper").toggleClass("toggled");
+                    });
 
-
-
-    {% block content %}
-    {% endblock %}
-
+                    $(window).resize(function(e) {
+                      if($(window).width()<=768){
+                        $("#wrapper").removeClass("toggled");
+                      }else{
+                        $("#wrapper").addClass("toggled");
+                      }
+                    });
+                  });
+                    $(document).ready(function(){
+                            if($(window).width()<768)
+                            {
+                                $('#sidebar-toggle').css('float','left');
+                            }
+                            $(window).on('resize',function(){
+                                if($(window).width()<768)
+                                {
+                                    console.log('here');
+                                      $('#sidebar-toggle').css('float','left');
+                                }
+                            });
+                        });
+                </script>
 <div class="container-fluid">
-<footer class="fixed-bottom bg-dark">
-  <div class="text-center">
-    <span class="text-muted">Copyright &copy; 2020 Zeszycik</span>
-  </div>
+    <footer class="fixed-bottom bg-dark">
+    <div class="text-center">
+        <span class="text-muted">Copyright &copy; 2020 Zeszycik</span>
+    </div>
 
 </footer>
 </div>
