@@ -29,7 +29,7 @@ def dashboard(request):
     return render(request, 'dashboard.html', {})
 
 
-class Administrator(ListView):
+class Administrator(LoginRequiredMixin ,ListView):
     template_name = 'administrator.html'
     model = Lesson
     context_object_name = 'lessons'
@@ -42,13 +42,13 @@ class UsersCreate(CreateView):
     form_class = UserCreationForm
     success_url = reverse_lazy('test')
 
-class UsersListView(ListView):
+class UsersListView(LoginRequiredMixin ,ListView):
     template_name = 'users.html'
     model = User
     context_object_name = 'users'
 
 
-class UsersUpdateView(UpdateView):
+class UsersUpdateView(LoginRequiredMixin ,UpdateView):
     template_name = 'form.html'
     model = User
     form_class = UsersUpdateForm
@@ -70,7 +70,7 @@ class AddGradeView(FormView):
 
 
 # ============================================================================================
-class LessonsListView(ListView):
+class LessonsListView(LoginRequiredMixin ,ListView):
     template_name = 'lessons_list.html'
     model = Lesson
     context_object_name = 'lessons'
@@ -88,21 +88,21 @@ class LessonsDataView(DetailView):
     context_object_name = 'lesson'
 
 
-class LessonsCreateView(CreateView):
+class LessonsCreateView(LoginRequiredMixin ,CreateView):
     template_name = 'form.html'
     models = Lesson
     form_class = LessonForm
     success_url = reverse_lazy('lessons_list')
 
 
-class LessonsUpdateView(UpdateView):
+class LessonsUpdateView(LoginRequiredMixin ,UpdateView):
     template_name = 'form.html'
     model = Lesson
     form_class = LessonForm
     success_url = reverse_lazy('lessons_list')
 
 
-class LessonsAddStudentView(UpdateView):
+class LessonsAddStudentView(LoginRequiredMixin ,UpdateView):
     template_name = 'form.html'
     model = Lesson
     form_class = LessonAddStudentForm
