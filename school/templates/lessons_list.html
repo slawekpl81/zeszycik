@@ -8,7 +8,7 @@
 {% block content %}
     <div class="container-fluid" id="dashborad-container">
     <h3>Curses:</h3>
-    <a href="{% url 'lesson_create' %}">Nowy kurs</a>
+    <a href="{% url 'lesson_create' %}" class="btn btn-success" role="button" aria-pressed="true">Add new curse</a>
 
     <div class=" table table-responsive-md">
       <table class="table">
@@ -30,7 +30,7 @@
                     <td>{{  forloop.counter }}</td>
                      <td>{{ lesson.name }}</td>
                      <td>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal{{ lesson.pk }}">
+                        <button type="button" class="btn btn-info active" data-toggle="modal" data-target="#exampleModal{{ lesson.pk }}">
                           Details
                         </button>
                             <div class="modal fade" id="exampleModal{{ lesson.pk }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -59,22 +59,19 @@
                             </div>
                     </td>
                     <td>
-                        <a href="{% url 'lesson_data' lesson.pk %}"class="btn btn-primary active" role="button" aria-pressed="true">Data</a>
+                        <a href="{% url 'lesson_data' lesson.pk %}"class="btn btn-info active "  role="button" aria-pressed="true">Data</a>
                     </td>
                     <td>
-                        <a href="{% url 'lesson_add_student' lesson.pk %}"class="btn btn-primary active" role="button" aria-pressed="true">add</a>
+                        <a href="{% url 'lesson_add_student' lesson.pk %}"class="btn btn-info active" role="button" aria-pressed="true">Add</a>
                     </td>
                     {% if user.groups.all.0.name == 'administrator' or user.groups.all.0.name == 'teachers' %}
                     <td>
-                        <a href="{% url 'lesson_update' lesson.pk %}"class="btn btn-primary active" role="button" aria-pressed="true">Update</a>
+                        <a href="{% url 'lesson_update' lesson.pk %}"class="btn btn-warning active" role="button" aria-pressed="true">Update</a>
                     </td>
 
-                        <td>
-                                <a href="#"class="btn btn-primary disabled" role="button" aria-pressed="true">Update</a>
-                        </td>
 
                             <td>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal1-{{ lesson.pk }}">
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal1-{{ lesson.pk }}">
                           Delete
                         </button>
                             <div class="modal fade" id="exampleModal1-{{ lesson.pk }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -115,4 +112,4 @@
     </div>
     </div>
 
-{% endblock %}
+{% endblock  %}

@@ -53,8 +53,17 @@ body {
     color: #666;
 }
 
-footer{
+.footer{
+
+    position: fixed;
+    position: sticky;
+  left: 0;
+  bottom: 0;
+  width: 100%;
     padding: 20px;
+
+  text-align: center;
+
 }
 
 #navbarSupportedContent{
@@ -107,3 +116,7 @@ padding: 0 0 0 5px;
 }
 
 
+.table-responsive-md{
+    margin-top: 20px;
+    margin-bottom: 120px;
+}

@@ -8,8 +8,9 @@
 
 
      <div class="container-fluid" id="dashborad-container">
-      <h3>Testy:</h3>
-    <a href="{% url 'studenttest_create' %}">Nowy test</a>
+      <h3>Tests:</h3>
+    <a href="{% url 'studenttest_create' %}"class="btn btn-success active "  role="button" aria-pressed="true">Add new test</a>
+         <br>
 
 
     <div class=" table table-responsive-md">
@@ -35,14 +36,14 @@
                     <td>{{ test.author }}</td>
                     <td>{{ test.question }}</td>
                     <td>
-                        <a href="{% url 'studenttest_detail' test.pk %}">link-details</a>
+                        <a href="{% url 'studenttest_detail' test.pk %}" class="btn btn-info active "  role="button" aria-pressed="true">Details</a>
                     </td>
                     {% if user.groups.all.0.name == 'administrator' or user.groups.all.0.name == 'teachers' %}
                     <td>
-                        <a href="{% url 'studenttest_update' test.pk %}">link-Update</a>
+                        <a href="{% url 'studenttest_update' test.pk %}" class="btn btn-warning active "  role="button" aria-pressed="true" >Update</a>
                     </td>
                     <td>
-                        <a href="{% url 'studenttest_delete' test.pk %}">link-Delete</a>
+                        <a href="{% url 'studenttest_delete' test.pk %}" class="btn btn-danger active "  role="button" aria-pressed="true">Delete</a>
                     </td>
                     {% endif %}
 

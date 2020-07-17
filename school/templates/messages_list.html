@@ -11,7 +11,7 @@
      <div class="container-fluid" id="dashborad-container">
 
      <h3>Messages:</h3>
-     <a href="{% url 'message_create' %}">Nowa wiadomość</a>
+     <a href="{% url 'message_create' %}" class="btn btn-success active "  role="button" aria-pressed="true">New Message</a>
 
     <div class=" table table-responsive-md">
       <table class="table">
@@ -29,20 +29,101 @@
             {% for message in messages %}
 
                 <tr >
-                    <td>{{ message.pk }}</td>
+                    <td>{{  forloop.counter }}</td>
                      <td>{{ message.author }}</td>
                       <td>  {{ message.target }}      </td>
                         <td>  {{ message.created }}      </td>
 
                     <td>
-                        <a href="{% url 'message_detail' message.pk %}">link-details</a>
+                        <button type="button" class="btn btn-info active" data-toggle="modal" data-target="#exampleModal{{ message.pk }}">Details</button>
+
+                        <div class="modal fade" id="exampleModal{{ message.pk }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Details</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                      <div class="modal-body">
+                                                Author: {{ message.author }}<br>
+                                                Text: {{ message.text }}<br>
+
+                                          <a href="{% url 'message_detail' message.pk %}"></a>
+                                      </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                     </td>
                     <td>
-                        <a href="{% url 'message_update' message.pk %}">link-Update</a>
+                        <a href="{% url 'message_update' message.pk %}"class="btn btn-warning active "  role="button" aria-pressed="true">Update</a>
+
+                        <button type="button" class="btn btn-warning active" data-toggle="modal" data-target="#exampleModal2-{{ message.pk }}">
+                          Update
+                        </button>
+                            <div class="modal fade" id="exampleModal2-{{ message.pk }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Update</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <form id="updata_form"  action="{% url 'message_update' message.pk %}" method="post">
+                                        {% csrf_token %}
+                                        <p>
+                                          TEXT - foorm update
+                                        </p>
+                                        <input class="btn-warning" type="submit" value="Update">
+                                      </form>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
                     </td>
                     <td>
-                        <a href="{% url 'message_delete' message.pk %}">link-Delete</a>
+
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal1-{{ message.pk }}">
+                          Delete
+                        </button>
+                            <div class="modal fade" id="exampleModal1-{{ message.pk }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <form id="delete_form" action="{% url 'message_delete' message.pk %}" method="post">
+                                        {% csrf_token %}
+                                        <p>
+                                          Are you sure you want to delete course? <br>
+                                            From: {{ message.author }} <br>
+                                            Text: {{ message.text }}<br>
+                                        </p>
+                                        <input class="btn-danger" type="submit" value="Delete">
+                                      </form>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                     </td>
+
 
 
                 </tr>

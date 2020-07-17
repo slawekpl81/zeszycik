@@ -4,8 +4,8 @@
 <link rel="stylesheet" href="{% static 'css/index.css' %}">
 
 {% block content %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
-    <h3>Wyniki testów:</h3>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}" class="btn btn-success active "  role="button" aria-pressed="true">
+    <h3>Test results:</h3>
 
 
         <div class=" table table-responsive-md">
@@ -27,7 +27,7 @@
                 <td>{{ exam.test.question }}</td>
                 <td>{{ exam.test.author }}</td>
                 <td>{{ exam.passed }}</td>
-           <td> <a href="{% url 'studenttest_solve_update' exam.pk %}">Solve test</a></td>
+           <td> <a href="{% url 'studenttest_solve_update' exam.pk %}"class="btn btn-info active "  role="button" aria-pressed="true">Solve test</a></td>
              </tr>
         {% endfor %}
                   <p><h5>Efficiency:{{ efficiency }}%</h5></p>

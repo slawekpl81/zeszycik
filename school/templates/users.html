@@ -1,20 +1,18 @@
-{% extends 'base.html' %}
+{% extends 'index.html' %}
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/index.css' %}">
 <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
 
 
-{% block title %}
-
-
+{% block content %}
 
     <div class="container-fluid" id="dashborad-container">
 
     <h3>Users:</h3>
 
     <div class=" table table-responsive-md">
-      <table class="table">
-          <thead>
+      <table class="table ">
+          <thead class="table-success">
             <th scope="col">No</th>
             <th scope="col">Username</th>
             <th scope="col">Group</th>
@@ -29,7 +27,7 @@
                     <td>{{ forloop.counter }}</td>
                      <td>{{ user.username }}</td>
                     <td>{{ user.groups.all.0.name }}</td>
-                    <td><a href="{% url 'user_update' user.pk %}"class="btn btn-primary active" role="button" aria-pressed="true">UPDATE</a></td>
+                    <td><a href="{% url 'user_update' user.pk %}"class="btn btn-warning active" role="button" aria-pressed="true">UPDATE</a></td>
 
 
                 </tr>
@@ -42,4 +40,4 @@
     </div>
 
 
-{% endblock title %}
+{% endblock  %}

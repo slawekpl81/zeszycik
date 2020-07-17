@@ -33,7 +33,7 @@
 
 </head>
 <body>
-        <nav class="navbar navbar-expand navbar-dark bg-dark"> <a href="#menu-toggle" id="menu-toggle" class="navbar-brand"><span class="navbar-toggler-icon pull-left"></span></a> <button class="navbar-toggler  pull-left" id="sidebar-toggle" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon pull-left"></span> </button>
+        <nav class="navbar navbar-expand navbar-dark bg-dark sticky-top"> <a href="#menu-toggle" id="menu-toggle" class="navbar-brand"><span class="navbar-toggler-icon pull-left"></span></a> <button class="navbar-toggler  pull-left" id="sidebar-toggle" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon pull-left"></span> </button>
             <div class="collapse navbar-collapse" id="navbarsExample02">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active "> <a class="nav-link" href="{% url 'index' %}">Home <span class="sr-only">(current)</span></a> </li>
@@ -42,7 +42,7 @@
                 <!--<form class="form-inline my-2 my-md-0"> </form>-->
                 <form class="form-inline my-2 my-md-0 pr-0 float:right"  id="logowanie">
                     {% if user.is_authenticated %}
-                        <a class="btn btn-outline-success padding " href="{% url 'lessons_list' %}">Zalogowano: {{ user.username }} <span class="sr-only">(current)</span></a>
+                        <a class="btn btn-outline-success padding " href="{% url 'lessons_list' %}">Log In: {{ user.username }} <span class="sr-only">(current)</span></a>
                         <a class="btn btn-outline-success my-2 my-sm-0" href="{% url 'logout' %}">LOGOUT</a>
                     {% else %}
                         <a class="btn btn-outline-success my-2 my-sm-0 float:right pull-left" href="{% url 'login' %}" >LOGIN</a>
@@ -64,10 +64,11 @@
                             <li> <a href="{% url 'studenttest_list' %}">Tests</a> </li>
                             <li> <a href="{% url 'calendar' %}">Calendar</a> </li>
                             <li> <a href="{% url 'messages_list' %}">Messages</a> </li>
+                            {% if user.groups.all.0.name == 'administrator' or user.groups.all.0.name == 'teachers' %}
                             <li> <a href="{% url 'library' %}">Library</a> </li>
                             <li> <a href="{% url 'exams' %}">Exams</a> </li>
                             <li> <a href="{% url 'users_list' %}">Users</a> </li>
-
+                            {% endif %}
                         </ul>
                     </div>
 
@@ -110,13 +111,13 @@
                             });
                         });
                 </script>
-<div class="container-fluid">
+<div class=" container-fluid sticky-top ">
     <footer class="fixed-bottom bg-dark">
     <div class="text-center">
         <span class="text-muted">Copyright &copy; 2020 Zeszycik</span>
     </div>
 
-</footer>
+    </footer>
 </div>
 </body>
 </html>
