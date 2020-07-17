@@ -8,7 +8,9 @@
 {% block content %}
     <div class="container-fluid" id="dashborad-container">
     <h3>Curses:</h3>
-    <a href="{% url 'lesson_create' %}" class="btn btn-success" role="button" aria-pressed="true">Add new curse</a>
+        {% if user.groups.all.0.name == 'administrator' or user.groups.all.0.name == 'teachers' %}
+            <a href="{% url 'lesson_create' %}" class="btn btn-success" role="button" aria-pressed="true">Add new curse</a>
+        {% endif %}
 
     <div class=" table table-responsive-md">
       <table class="table">
@@ -17,10 +19,12 @@
             <th scope="col">Curses</th>
             <th scope="col">Details</th>
             <th scope="col">Science materials</th>
-            <th scope="col">Add to calendar</th>
+            {% if user.groups.all.0.name == 'students' %}
+                <th scope="col">Add to calendar</th>
+            {% endif %}
             {% if user.groups.all.0.name == 'administrator' or user.groups.all.0.name == 'teachers' %}
-            <th scope="col">Update</th>
-            <th scope="col">Delete</th>
+                <th scope="col">Update</th>
+                <th scope="col">Delete</th>
             {% endif %}
 
           </thead>
@@ -59,11 +63,13 @@
                             </div>
                     </td>
                     <td>
-                        <a href="{% url 'lesson_data' lesson.pk %}"class="btn btn-info active "  role="button" aria-pressed="true">Data</a>
+                        <a href="{% url 'lesson_data' lesson.pk %}" class="btn btn-info active"  role="button" aria-pressed="true">Data</a>
                     </td>
+                {% if user.groups.all.0.name == 'students' %}
                     <td>
                         <a href="{% url 'lesson_add_student' lesson.pk %}"class="btn btn-info active" role="button" aria-pressed="true">Add</a>
                     </td>
+                {% endif %}
                     {% if user.groups.all.0.name == 'administrator' or user.groups.all.0.name == 'teachers' %}
                     <td>
                         <a href="{% url 'lesson_update' lesson.pk %}"class="btn btn-warning active" role="button" aria-pressed="true">Update</a>

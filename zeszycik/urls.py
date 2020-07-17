@@ -25,8 +25,9 @@ from django.conf import settings
 
 urlpatterns = [
 
-    path('', views.newsignup, name='test'),
-    path('', views.newsignin),
+    #path('', views.newsignup, name='test'),
+    path('', UsersCreate.as_view(), name='test'),
+    #path('', views.newsignin),
     path('admin/', admin.site.urls),
     path('', index, name='index'),
     path('login/', LoginView.as_view(), name='login'),

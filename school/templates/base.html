@@ -61,14 +61,17 @@
                         <ul class="sidebar-nav">
                             <li class="sidebar-brand"> <a href="{% url 'lessons_list' %}"> Zeszycik </a> </li>
                             <li> <a href="{% url 'lessons_list' %}">Curses</a> </li>
-                            <li> <a href="{% url 'studenttest_list' %}">Tests</a> </li>
                             <li> <a href="{% url 'calendar' %}">Calendar</a> </li>
                             <li> <a href="{% url 'messages_list' %}">Messages</a> </li>
-                            {% if user.groups.all.0.name == 'administrator' or user.groups.all.0.name == 'teachers' %}
                             <li> <a href="{% url 'library' %}">Library</a> </li>
                             <li> <a href="{% url 'exams' %}">Exams</a> </li>
+                        {% if user.groups.all.0.name == 'administrator' or user.groups.all.0.name == 'teachers' %}
+                            <li> <a href="{% url 'studenttest_list' %}">Tests</a> </li>
+                        {% endif %}
+
+                        {% if user.groups.all.0.name == 'administrator' %}
                             <li> <a href="{% url 'users_list' %}">Users</a> </li>
-                            {% endif %}
+                        {% endif %}
                         </ul>
                     </div>
 

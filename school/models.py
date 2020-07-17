@@ -8,13 +8,13 @@ from functools import reduce
 
 
 class SchoolUser(models.Model):
-    USERS_KIND = [
-        ('administrator', 'Dyrektor'),
-        ('teacher', 'Nauczyciel'),
-        ('student', 'Uczeń')
-    ]
+    # USERS_KIND = [
+    #     ('administrator', 'Dyrektor'),
+    #     ('teacher', 'Nauczyciel'),
+    #     ('student', 'Uczeń')
+    # ]
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
-    permissions = models.CharField(choices=USERS_KIND, max_length=15)
+    # permissions = models.CharField(choices=USERS_KIND, max_length=15)
     grades = models.CharField(max_length=150, default='')
 
     def add_grade(self, grade):
@@ -25,7 +25,7 @@ class SchoolUser(models.Model):
         return f'{mean :.2f}'
 
     def __str__(self):
-        return f'{self.user.first_name} {self.user.last_name} - {self.permissions}'
+        return f'{self.user.first_name} {self.user.last_name} - {self.user.groups[0].name}'
 
 
 class Lesson(models.Model):

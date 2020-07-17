@@ -1,4 +1,3 @@
-
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -15,21 +14,34 @@ from school.forms import LoginForm
 # Create your views here.
 
 def newsignup(request):
-    return render(request,'index.html', {"formSignup":UserCreationForm})
+    return render(request, 'index.html', {"formSignup": UserCreationForm})
+
+
 def newsignin(request):
-    return render(request,'index.html', {"formSignin":UserCreationForm})
+    return render(request, 'index.html', {"formSignin": UserCreationForm})
+
 
 def index(request):
     return render(request, 'index.html', {})
 
+
 def dashboard(request):
     return render(request, 'dashboard.html', {})
+
 
 class Administrator(ListView):
     template_name = 'administrator.html'
     model = Lesson
     context_object_name = 'lessons'
+
+
 # ============================================================================================
+class UsersCreate(CreateView):
+    template_name = 'index.html'
+    model = User
+    form_class = UserCreationForm
+    success_url = reverse_lazy('test')
+
 class UsersListView(ListView):
     template_name = 'users.html'
     model = User
@@ -41,16 +53,34 @@ class UsersUpdateView(UpdateView):
     model = User
     form_class = UsersUpdateForm
     success_url = reverse_lazy('users_list')
+
+
+# ============================================================================================
+class AddGradeView(FormView):
+    template_name = 'form.html'
+    form_class = AddGradeForm
+
+    # def form_valid(self, form):
+    #     result = super(AddGradeView, self).form_valid()
+    #     login_user = self.request.user
+    #     if not SchoolUser.objects.filter(user=login_user):
+    #         SchoolUser.objects.create(user=login_user)
+    #     s_user = SchoolUser.objects.filter(user=login_user)
+    #     s_user.add_grade(cleaned_data)
+
+
 # ============================================================================================
 class LessonsListView(ListView):
     template_name = 'lessons_list.html'
     model = Lesson
     context_object_name = 'lessons'
 
+
 class LessonsDetailView(DetailView):
     template_name = 'lessons_detail.html'
     model = Lesson
     context_object_name = 'lesson'
+
 
 class LessonsDataView(DetailView):
     template_name = 'lessons_data.html'
@@ -71,11 +101,13 @@ class LessonsUpdateView(UpdateView):
     form_class = LessonForm
     success_url = reverse_lazy('lessons_list')
 
+
 class LessonsAddStudentView(UpdateView):
     template_name = 'form.html'
     model = Lesson
     form_class = LessonAddStudentForm
-    #success_url = reverse_lazy('lessons_list')
+
+    # success_url = reverse_lazy('lessons_list')
 
     def get_success_url(self):
         user = self.request.user
@@ -141,6 +173,7 @@ class StudentTestListView(ListView):
     model = StudentTest
     context_object_name = 'studenttests'
 
+
 class StudentTestDetailView(DetailView):
     template_name = 'studenttest_detail.html'
     model = StudentTest
@@ -167,11 +200,12 @@ class StudentTestDeleteView(DeleteView):
     form_class = StudentTestForm
     success_url = reverse_lazy('studenttest_list')
 
+
 class StudentTestSolveView(CreateView):
     template_name = 'studenttest_solve.html'
     model = Exam
     form_class = StudentTestSolveForm
-    
+
     def get_form_kwargs(self):
         form = super(StudentTestSolveView, self).get_form_kwargs()
         form['user'] = self.request.user.username
@@ -179,7 +213,8 @@ class StudentTestSolveView(CreateView):
 
     def get_success_url(self):
         test_id = self.object.id
-        return reverse_lazy('studenttest_solve_update', kwargs={'pk' : test_id})
+        return reverse_lazy('studenttest_solve_update', kwargs={'pk': test_id})
+
 
 class StudentTestSolveUpdateView(UpdateView):
     template_name = 'studenttest_solve_update.html'
@@ -198,6 +233,7 @@ class ExamListView(ListView):
     template_name = 'exam_list.html'
     model = Exam
     context_object_name = 'exams'
+
     def get_queryset(self):
         return Exam.objects.filter(student=self.request.user)
 
@@ -205,8 +241,11 @@ class ExamListView(ListView):
         context = super(ExamListView, self).get_context_data()
         all_exam = Exam.objects.filter(student=self.request.user)
         ok_exam = Exam.objects.filter(student=self.request.user).filter(passed_exam=True)
-        efficiency = len(ok_exam) / len(all_exam) * 100
-        context['efficiency'] = f'{efficiency:.2f}'
+        if len(all_exam):
+            efficiency = len(ok_exam) / len(all_exam) * 100
+            context['efficiency'] = f'{efficiency:.2f}'
+        else:
+            context['efficiency'] = f'No results!'
         return context
 
 
@@ -215,11 +254,15 @@ class CalendarView(ListView):
     template_name = 'calendar.html'
     model = Lesson
     context_object_name = 'lessons'
+
+
 # ============================================================================================
 class LibraryView(ListView):
     template_name = 'library.html'
     model = Lesson
     context_object_name = 'books'
+
+
 # ============================================================================================
 def teacher(request):
     return render(request, 'teacher.html', {})

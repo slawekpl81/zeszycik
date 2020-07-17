@@ -57,6 +57,7 @@ class StudentTestForm(ModelForm):
 
 class StudentTestSolveForm(ModelForm):
     """create new test-solve"""
+
     def __init__(self, user=None, *args, **kwargs):
         super().__init__(*args, **kwargs)
         if user:
@@ -66,8 +67,10 @@ class StudentTestSolveForm(ModelForm):
         model = Exam
         fields = ['test', 'student']
 
+
 class StudentTestSolveUpdateForm(ModelForm):
     """solve test"""
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -82,4 +85,8 @@ class UsersUpdateForm(ModelForm):
 
     class Meta:
         model = User
-        fields = ['username','first_name','last_name','groups','email','last_login','date_joined']
+        fields = ['username', 'first_name', 'last_name', 'groups', 'email', 'last_login', 'date_joined']
+
+
+class AddGradeForm(Form):
+    grade = models.IntegerField()

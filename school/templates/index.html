@@ -27,8 +27,9 @@
                         content here', making it look like readable English. Many desktop publishing</p>
                 </div>
                 <br>
-                <a class="btn btn-outline-secondary btn-lg showcase-btn" data-toggle="modal" data-target="#Modalsignup"> Sign Up </a>
-
+                {% if not user.is_authenticated %}
+                    <a class="btn btn-outline-secondary btn-lg showcase-btn" data-toggle="modal" data-target="#Modalsignup"> Sign Up </a>
+                {% endif %}
 
             </div>
         </div>
@@ -55,13 +56,13 @@
                       <div class="modal-body" >
 
                               {% csrf_token %}
-                              {{ formSignup | crispy }}
-
+                              {{ form | crispy }}
 
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                          <button type="submit" class="btn btn-primary">Sign up</button>
+
+                            <button type="submit" class="btn btn-primary">Sign up</button>
 
                       </div>
                     </div>
