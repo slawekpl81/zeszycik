@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
@@ -9,6 +9,9 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.db import IntegrityError
 from school.forms import LoginForm
+from django.contrib.auth import login, authenticate
+from django.contrib import messages
+from django.contrib.messages.views import SuccessMessageMixin
 
 
 # Create your views here.
@@ -36,11 +39,23 @@ class Administrator(LoginRequiredMixin ,ListView):
 
 
 # ============================================================================================
-class UsersCreate(CreateView):
+class UsersCreate(CreateView,SuccessMessageMixin):
     template_name = 'index.html'
     model = User
-    form_class = UserCreationForm
+    form_class = RegistrationForm
     success_url = reverse_lazy('test')
+    success_message = "Your account was created successfully"
+
+    def register(response):
+            if response.method == "POST":
+                form_class = RegistrationForm(response.POST)
+                if form_class.is_valid():
+                    form_class.save()
+                    messages.success(request, 'Your account....')
+                return redirect("index.html")
+            else:
+                form_class = RegistrationForm()
+            return render(response,"index.html", {"form":form_class})
 
 class UsersListView(LoginRequiredMixin ,ListView):
     template_name = 'users.html'

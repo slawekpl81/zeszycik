@@ -1,5 +1,7 @@
 from django.forms import *
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm,UserCreationForm
+from django import forms
+from django.contrib.auth.models import User
 from .models import *
 from crispy_forms import *
 
@@ -90,3 +92,12 @@ class UsersUpdateForm(ModelForm):
 
 class AddGradeForm(Form):
     grade = models.CharField()
+
+class RegistrationForm(UserCreationForm):
+    email = forms.EmailField()
+    first_name = forms.Textarea
+    last_name = forms.Textarea
+
+    class Meta:
+            model = User
+            fields = ["username",'first_name', 'last_name', "email", 'password1', 'password2']

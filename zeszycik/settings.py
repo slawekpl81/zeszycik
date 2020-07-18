@@ -132,3 +132,4 @@ STATICFILES_DIRS = [
 ]
 MEDIA_URL = '/data/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/data')
+MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
