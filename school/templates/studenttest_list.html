@@ -47,8 +47,9 @@
             <th scope="col">No</th>
             <th scope="col">Lesson</th>
             <th scope="col">Author</th>
-            <th scope="col">Question</th>
+
             <th scope="col">Details</th>
+            <th scope="col">Test</th>
             {% if user.groups.all.0.name == 'administrator' or user.groups.all.0.name == 'teachers' %}
             <th scope="col">Update</th>
             <th scope="col">Delete</th>
@@ -59,19 +60,103 @@
             {% for test in studenttests %}
 
                 <tr >
-                    <td>{{ test.pk }}</td>
+                    <td>{{  forloop.counter }}</td>
+
                     <td>{{ test.lesson }}</td>
                     <td>{{ test.author }}</td>
-                    <td>{{ test.question }}</td>
+
                     <td>
-                        <a href="{% url 'studenttest_detail' test.pk %}" class="btn btn-info active "  role="button" aria-pressed="true">Details</a>
+
+                         <button type="button" class="btn btn-info active" data-toggle="modal" data-target="#exampleModal{{ test.pk }}">Details</button>
+
+                        <div class="modal fade" id="exampleModal{{ test.pk }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Details</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                      <div class="modal-body">
+                                                Curse: {{ test.lesson }}<br>
+                                                Author: {{ test.author }}<br>
+                                                Questions: {{ test.question }}<br>
+
+                                          <a href="{% url 'message_detail' test.pk %}"></a>
+                                      </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                     </td>
+                    <td>
+                        <button type="button" class="btn btn-dark active" data-toggle="modal" data-target="#exampleModal{{ test.pk }}">Solve</button>
+
+                        <!--<form method="post">
+                        <div class="modal fade" id="exampleModal{{ test.pk }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Test Solve</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                      <div class="modal-body">
+                                                {#% csrf_token %#}
+                                                {#  #}{ form.as_table }}
+
+                                          <a href="{#% url 'studenttest_solve' test.pk %#}"></a>
+                                      </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            </form>-->
+
+                    </td>
+
+
                     {% if user.groups.all.0.name == 'administrator' or user.groups.all.0.name == 'teachers' %}
                     <td>
                         <a href="{% url 'studenttest_update' test.pk %}" class="btn btn-warning active "  role="button" aria-pressed="true" >Update</a>
                     </td>
                     <td>
-                        <a href="{% url 'studenttest_delete' test.pk %}" class="btn btn-danger active "  role="button" aria-pressed="true">Delete</a>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal1-{{ test.pk }}">
+                          Delete
+                        </button>
+                            <div class="modal fade" id="exampleModal1-{{ test.pk }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <form id="delete_form" action="{% url 'message_delete' test.pk %}" method="post">
+                                        {% csrf_token %}
+                                        <p>
+                                          Are you sure you want to delete course? <br>
+                                            From: {{ test.author }} <br>
+                                            Curse: {{ test.lesson }}<br>
+                                        </p>
+                                        <input class="btn-danger" type="submit" value="Delete">
+                                      </form>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
                     </td>
                     {% endif %}
 
