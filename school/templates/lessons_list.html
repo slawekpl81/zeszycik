@@ -34,14 +34,14 @@
                     <td>{{  forloop.counter }}</td>
                      <td>{{ lesson.name }}</td>
                      <td>
-                        <button type="button" class="btn btn-info active" data-toggle="modal" data-target="#exampleModal{{ lesson.pk }}">
+                        <button type="button" class="btn btn-info active" data-toggle="modal" data-target="#Modal{{ lesson.pk }}">
                           Details
                         </button>
-                            <div class="modal fade" id="exampleModal{{ lesson.pk }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="Modal{{ lesson.pk }}" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
                               <div class="modal-dialog">
                                 <div class="modal-content">
                                   <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Details</h5>
+                                    <h5 class="modal-title" id="ModalLabel">Details</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                       <span aria-hidden="true">&times;</span>
                                     </button>
@@ -50,9 +50,7 @@
                                                 Name: {{ lesson.name }}<br>
                                                 Description: {{ lesson.description }}<br>
                                                 Author: {{ lesson.teacher }}<br>
-                                            {#    {{ lesson.students.get_queryset }} <br>#}
-                                            {#    {{ lesson.date }}<br>#}
-                                            {#    {{ lesson.data }}<br>#}
+
                                           <a href="{% url 'lesson_detail' lesson.pk %}"></a>
                                       </div>
                                   <div class="modal-footer">
@@ -64,6 +62,14 @@
                     </td>
                     <td>
                         <a href="{% url 'lesson_data' lesson.pk %}" class="btn btn-info active"  role="button" aria-pressed="true">Data</a>
+
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#Modal{{ lesson.pk }}">
+                          Data
+                        </button>
+
+
+
+
                     </td>
                 {% if user.groups.all.0.name == 'students' %}
                     <td>
@@ -73,14 +79,16 @@
                     {% if user.groups.all.0.name == 'administrator' or user.groups.all.0.name == 'teachers' %}
                     <td>
                         <a href="{% url 'lesson_update' lesson.pk %}"class="btn btn-warning active" role="button" aria-pressed="true">Update</a>
+
+
                     </td>
 
 
                             <td>
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal1-{{ lesson.pk }}">
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#Modal{{ lesson.pk }}">
                           Delete
                         </button>
-                            <div class="modal fade" id="exampleModal1-{{ lesson.pk }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="Modal{{ lesson.pk }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                               <div class="modal-dialog">
                                 <div class="modal-content">
                                   <div class="modal-header">

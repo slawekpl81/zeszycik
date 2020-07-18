@@ -89,4 +89,4 @@ class UsersUpdateForm(ModelForm):
 
 
 class AddGradeForm(Form):
-    grade = models.IntegerField()
+    grade = models.CharField()

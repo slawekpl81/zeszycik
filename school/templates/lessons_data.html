@@ -1,15 +1,15 @@
 {% extends 'index.html' %}
 {% load static %}
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
 
-
-{% block title %}
+{% block content %}
     {% if lesson.data %}
     {#    {{ lesson.name }}<br>#}
     {#    {{ lesson.description }}<br>#}
     {#    {{ lesson.teacher }}<br>#}
     {#    {{ lesson.date }}<br>#}
     {#    {{ lesson.data.url }}<br>#}
-        <embed src="{% static lesson.data.url %}" type="application/pdf" height="700px" width="50%">
+        <embed src="{% static lesson.data.url %}" type="application/pdf" height="700px" width="100%">
     {% else %}
         <h2>No data available!</h2>
     {% endif %}
