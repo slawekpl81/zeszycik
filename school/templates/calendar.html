@@ -18,18 +18,30 @@
             <th scope="col">No</th>
             <th scope="col">Curses</th>
             <th scope="col">Date</th>
-
+            {% if user.groups.all.0.name == 'students' %}
+                <th scope="col">Add to calendar</th>
+            {% endif %}
 
           </thead>
           <tbody>
 
-            {% for lessons in lessons %}
+            {% for lesson in lessons %}
 
                 <tr >
-                    <td>{{ lessons.pk }}</td>
-                     <td>{{ lessons.name }}</td>
-                    <td>{{ lessons.date }}</td>
-
+                    <td>{{ lesson.pk }}</td>
+                     <td>{{ lesson.name }}</td>
+                    <td>{{ lesson.date }}</td>
+                    {% if user.groups.all.0.name == 'students' %}
+                        {% if not user in lesson.students.all %}
+                            <td>
+                                <a href="{% url 'lesson_add_student' lesson.pk %}"class="btn btn-info active" role="button" aria-pressed="true">Add</a>
+                            </td>
+                        {% else %}
+                            <td>
+                                <a href="#"class="btn btn-info active" role="button" aria-pressed="true">you are signed in</a>
+                            </td>
+                        {% endif %}
+                    {% endif %}
 
                 </tr>
             {% endfor %}

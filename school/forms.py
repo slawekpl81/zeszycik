@@ -92,7 +92,7 @@ class UsersUpdateForm(ModelForm):
 
 
 class AddGradeForm(Form):
-    grade = models.CharField()
+    grade = forms.CharField()
 
 class RegistrationForm(UserCreationForm):
     email = forms.EmailField()
