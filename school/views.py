@@ -280,9 +280,4 @@ class LibraryView(LoginRequiredMixin, ListView):
 
 
 # ============================================================================================
-def teacher(request):
-    return render(request, 'teacher.html', {})
 
-
-def student(request):
-    return render(request, 'student.html', {})

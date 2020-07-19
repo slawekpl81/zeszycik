@@ -38,8 +38,7 @@ urlpatterns = [
     path('users/update/<pk>', UsersUpdateView.as_view(), name='user_update'),
 
     path('administrator', Administrator.as_view(), name='administrator'),
-    path('teacher', teacher, name='teacher'),
-    path('student', student, name='student'),
+
 
     path('lessons', LessonsListView.as_view(), name='lessons_list'),
     path('lesson/detail/<pk>', LessonsDetailView.as_view(), name='lesson_detail'),
