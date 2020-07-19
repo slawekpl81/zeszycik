@@ -8,21 +8,17 @@ from functools import reduce
 
 
 class SchoolUser(models.Model):
-    # USERS_KIND = [
-    #     ('administrator', 'Dyrektor'),
-    #     ('teacher', 'Nauczyciel'),
-    #     ('student', 'Uczeń')
-    # ]
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
-    # permissions = models.CharField(choices=USERS_KIND, max_length=15)
     grades = models.CharField(max_length=150, default='')
 
     def add_grade(self, grade):
         self.grades += str(grade)
 
     def mean_of_grades(self):
-        mean = reduce(lambda sum_of, grade: int(sum_of) + int(grade), self.grades) / len(self.grades)
-        return f'{mean :.2f}'
+        if len(self.grades):
+            mean = reduce(lambda sum_of, grade: int(sum_of) + int(grade), self.grades) / len(self.grades)
+            return f'{mean :.2f}'
+        return 'no grades'
 
     def __str__(self):
         return f'{self.user.first_name} {self.user.last_name} - {self.user.groups[0].name}'
@@ -47,7 +43,7 @@ class Message(models.Model):
     created = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
-        return f'OD:{self.author} DO:{self.target} Z: {self.created}'
+        return f'From:{self.author} in: {self.created}'
 
 
 class StudentTest(models.Model):
@@ -62,7 +58,6 @@ class StudentTest(models.Model):
 
     def __str__(self):
         return f'{self.lesson.name}-{self.question[:30]}'
-
 
 
 class Exam(models.Model):
