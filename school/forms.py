@@ -4,6 +4,7 @@ from django import forms
 from django.contrib.auth.models import User
 from .models import *
 from crispy_forms import *
+from captcha.fields import CaptchaField
 
 
 class LoginForm(Form):
@@ -98,6 +99,7 @@ class RegistrationForm(UserCreationForm):
     first_name = forms.Textarea
     last_name = forms.Textarea
 
+
     class Meta:
             model = User
-            fields = ["username",'first_name', 'last_name', "email", 'password1', 'password2']
+            fields = ["username",'first_name', 'last_name', "email", 'password1', 'password2',]

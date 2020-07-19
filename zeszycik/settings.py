@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'school.apps.SchoolConfig',
     'crispy_forms',
+    'captcha',
 
 ]
 
@@ -133,3 +134,4 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/data/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/data')
 MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
+GOOGLE_RECAPTCHA_SECRET_KEY = '6LdVJrMZAAAAAO1QgEVwjPo9hrzxpqGJ_dDac9Of'
