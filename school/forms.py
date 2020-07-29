@@ -41,11 +41,13 @@ class MessageForm(ModelForm):
     def __init__(self, user=None, *args, **kwargs):
         super().__init__(*args, **kwargs)
         if user:
-            self.fields['author'].queryset = User.objects.filter(username=user)
+            login_user = User.objects.filter(username=user)
+            self.fields['author'].queryset = login_user
+            self.fields['author'].initial = login_user[0]
 
     class Meta:
         model = Message
-        fields = '__all__'
+        exclude = ('created',)
 
 
 class StudentTestForm(ModelForm):

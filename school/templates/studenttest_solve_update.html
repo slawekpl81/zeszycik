@@ -4,16 +4,53 @@
 <link rel="stylesheet" href="{% static 'css/index.css' %}">
 
 {% block content %}
+    <style>
+    .answ{
+        border-radius: 15px;
+        margin: 10px;
+        text-align: center;
+        padding: 10px;
+    }
+    .answ1{
+        background: #9bc28e;
+    }
+    .answ2{
+        background: #6897bb;
+    }
+    .answ3{
+        background: #c69557;
+    }
+    .answ4{
+        background: aquamarine;
+    }
+    </style>
     <h1>Type correct value:</h1>
     <form  method="post">
         {% csrf_token %}
                         {% if test %}
                 <p><h3>Question: {{ test.0.question }}</h3></p>
+                <div class="answ1 answ">
                     <p>Answer 1: {{ test.0.answer_1 }}</p>
+                    <input type="radio" id="answer1" name="test" value="answer 1">
+                    <label for="answer1">Answer 1</label><br>
+                </div>
+                <div class="answ2 answ">
                     <p>Answer 2: {{ test.0.answer_2 }}</p>
+                            <input type="radio" id="answer2" name="test" value="answer 2">
+                            <label for="answer2">Answer 2</label><br>
+                </div>
+                <div class="answ3 answ">
                     <p>Answer 3: {{ test.0.answer_3 }}</p>
+                            <input type="radio" id="answer3" name="test" value="answer 3">
+                            <label for="answer3">Answer 3</label><br>
+                </div>
+                <div class="answ4 answ">
                     <p>Answer 4: {{ test.0.answer_4 }}</p>
+                            <input type="radio" id="answer4" name="test" value="answer 4">
+                            <label for="answer4">Answer 4</label><br>
+                </div>
                 {% endif %}
+
         <table>
             {{ form | crispy }}<br>
         </table>
@@ -22,4 +59,23 @@
 
     </form>
 
+    <script>
+    document.getElementById("answer1").addEventListener("click", function(){
+        document.getElementById("id_answer").value = {{ test.0.answer_1 }};
+    });
+
+    document.getElementById("answer2").addEventListener("click", function(){
+        document.getElementById("id_answer").value = {{ test.0.answer_2 }};
+    });
+
+    document.getElementById("answer3").addEventListener("click", function(){
+        document.getElementById("id_answer").value = {{ test.0.answer_3 }};
+    });
+
+    document.getElementById("answer4").addEventListener("click", function(){
+        document.getElementById("id_answer").value = {{ test.0.answer_4 }};
+    });
+</script>
+
 {% endblock content %}
+

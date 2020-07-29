@@ -51,7 +51,7 @@ class UsersCreate(CreateView,SuccessMessageMixin):
                 form_class = RegistrationForm(response.POST)
                 if form_class.is_valid():
                     form_class.save()
-                    messages.success(request, 'Your account....')
+                    #messages.success(request, 'Your account....')
                 return redirect("index.html")
             else:
                 form_class = RegistrationForm()
@@ -147,7 +147,8 @@ class MessageListView(LoginRequiredMixin, ListView):
     context_object_name = 'messages'
 
     def get_queryset(self):
-        return Message.objects.filter(target=self.request.user)
+        messages_qs = Message.objects.filter(target=self.request.user) | Message.objects.filter(author=self.request.user)
+        return messages_qs.order_by('author')
 
 
 class MessageDetailView(DetailView):
