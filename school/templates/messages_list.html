@@ -14,6 +14,28 @@
      <h3>Messages:</h3>
      <a href="{% url 'message_create' %}" class="btn btn-success active "  role="button" aria-pressed="true">New Message</a>
 
+    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+        <label class="btn btn-secondary active">
+
+            <a href="{% url 'messages_list' 'all' %}">
+                <input type="radio" name="options" id="all" autocomplete="off"> ALL</a>
+      </label>
+
+      <label class="btn btn-secondary">
+          <a href="{% url 'messages_list' 'sent'%}">
+            <input type="radio" name="options" id="sent" autocomplete="off" > SENT
+          </a>
+
+      </label>
+
+      <label class="btn btn-secondary">
+          <a href="{% url 'messages_list' 'received'%}">
+              <input type="radio" name="options" id="received" autocomplete="off"> RECEIVED
+          </a>
+
+      </label>
+    </div>
+
 
     <div class=" table table-responsive-md">
       <table class="table">
@@ -23,13 +45,14 @@
             <th scope="col">To</th>
             <th scope="col">Date</th>
             <th scope="col">Message</th>
-{#            <th scope="col">Update</th>#}
             <th scope="col">Delete</th>
           </thead>
+
+
+
           <tbody>
 
             {% for message in messages %}
-
                 <tr >
                     <td>{{  forloop.counter }}</td>
                      <td>{{ message.author }}</td>
@@ -51,7 +74,6 @@
                                       <div class="modal-body">
                                                 Author: {{ message.author }}<br>
                                                 Text: {{ message.text }}<br>
-
                                           <a href="{% url 'message_detail' message.pk %}"></a>
                                       </div>
                                   <div class="modal-footer">

@@ -48,7 +48,7 @@ urlpatterns = [
     path('lessons/create',     LessonsCreateView.as_view(), name='lesson_create'),
     path('lessons/addstudent/<pk>', LessonsAddStudentView.as_view(), name='lesson_add_student'),
 
-    path('messages', MessageListView.as_view(), name='messages_list'),
+    path('messages/<status>', MessageListView.as_view(), name='messages_list'),
     path('message/detail/<pk>', MessageDetailView.as_view(), name='message_detail'),
     path('message/update/<pk>', MessageUpdateView.as_view(), name='message_update'),
     path('message/delete/<pk>', MessageDeleteView.as_view(), name='message_delete'),

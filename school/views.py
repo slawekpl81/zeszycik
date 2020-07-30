@@ -39,7 +39,7 @@ class Administrator(LoginRequiredMixin, ListView):
 
 
 # ============================================================================================
-class UsersCreate(CreateView,SuccessMessageMixin):
+class UsersCreate(CreateView, SuccessMessageMixin):
     template_name = 'index.html'
     model = User
     form_class = RegistrationForm
@@ -47,15 +47,15 @@ class UsersCreate(CreateView,SuccessMessageMixin):
     success_message = "Your account was created successfully"
 
     def register(response):
-            if response.method == "POST":
-                form_class = RegistrationForm(response.POST)
-                if form_class.is_valid():
-                    form_class.save()
-                    #messages.success(request, 'Your account....')
-                return redirect("index.html")
-            else:
-                form_class = RegistrationForm()
-            return render(response, "index.html", {"form": form_class})
+        if response.method == "POST":
+            form_class = RegistrationForm(response.POST)
+            if form_class.is_valid():
+                form_class.save()
+                # messages.success(request, 'Your account....')
+            return redirect("index.html")
+        else:
+            form_class = RegistrationForm()
+        return render(response, "index.html", {"form": form_class})
 
 
 class UsersListView(LoginRequiredMixin, ListView):
@@ -147,8 +147,16 @@ class MessageListView(LoginRequiredMixin, ListView):
     context_object_name = 'messages'
 
     def get_queryset(self):
-        messages_qs = Message.objects.filter(target=self.request.user) | Message.objects.filter(author=self.request.user)
-        return messages_qs.order_by('author')
+        messages_sent = Message.objects.filter(author=self.request.user)
+        messages_received = Message.objects.filter(target=self.request.user)
+        messages_all = Message.objects.filter(target=self.request.user) | Message.objects.filter(
+            author=self.request.user)
+        if self.kwargs['status'] == 'all':
+            return messages_all.order_by('created')
+        elif self.kwargs['status'] == 'sent':
+            return messages_sent.order_by('created')
+        elif self.kwargs['status'] == 'received':
+            return messages_received.order_by('created')
 
 
 class MessageDetailView(DetailView):
@@ -242,7 +250,7 @@ class StudentTestSolveUpdateView(UpdateView):
     def get_context_data(self, **kwargs):
         context = super(StudentTestSolveUpdateView, self).get_context_data(**kwargs)
         context['test'] = StudentTest.objects.filter(id=self.object.test.id)
-        print(f'test!!!-{context["test"]}')
+        # print(f'test!!!-{context["test"]}')
         return context
 
 
@@ -279,6 +287,4 @@ class LibraryView(LoginRequiredMixin, ListView):
     model = Lesson
     context_object_name = 'books'
 
-
 # ============================================================================================
-
