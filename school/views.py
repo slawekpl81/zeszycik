@@ -29,7 +29,9 @@ def index(request):
 
 
 def dashboard(request):
-    return render(request, 'dashboard.html', {})
+    lessons = Lesson.objects.all()
+    teachers = User.objects.filter(groups__name='teachers')
+    return render(request, 'dashboard.html', {'lessons': lessons, 'teachers': teachers})
 
 
 class Administrator(LoginRequiredMixin, ListView):

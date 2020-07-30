@@ -8,7 +8,7 @@ from functools import reduce
 
 
 class SchoolUser(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True, related_name='users')
     grades = models.CharField(max_length=150, default='')
 
     def add_grade(self, grade):
